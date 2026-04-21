@@ -17,7 +17,7 @@ function parseCsvLine(line: string): string[] {
 }
 
 export async function GET() {
-  const res = await fetch(CSV_URL, { next: { revalidate: 60 } })
+  const res = await fetch(CSV_URL, { redirect: 'follow', next: { revalidate: 60 } })
   const text = await res.text()
   const lines = text.trim().split('\n').slice(1)
 
@@ -26,7 +26,7 @@ export async function GET() {
     const cols = parseCsvLine(line)
     const name = cols[0]
     const n    = parseInt(cols[3] || '0', 10)
-    if (name) totals.set(name, (totals.get(name) ?? 0) + n)
+    if (name && name.toLowerCase() !== 'total') totals.set(name, (totals.get(name) ?? 0) + n)
   }
 
   const rows = [...totals.entries()]

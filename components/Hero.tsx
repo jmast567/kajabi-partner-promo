@@ -2,170 +2,105 @@
 
 import { useEffect, useState } from 'react'
 
-function Countdown({ target, label }: { target: Date; label: string }) {
-  const [t, setT] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  const [done, setDone] = useState(false)
+const AFFILIATE_OPEN = new Date('2026-05-18T06:00:00-07:00')
+const FINAL_CLOSE    = new Date('2026-06-05T23:59:00-07:00')
+
+function StatusPill() {
+  const [label, setLabel] = useState('')
+  const [live, setLive]   = useState(false)
 
   useEffect(() => {
-    const tick = () => {
-      const diff = target.getTime() - Date.now()
-      if (diff <= 0) { setDone(true); return }
-      setT({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
-      })
+    const now = new Date()
+    if (now < AFFILIATE_OPEN) {
+      setLabel('Affiliate Early Access Opens May 18 at 6 AM PST')
+    } else if (now < FINAL_CLOSE) {
+      setLabel('Live Now')
+      setLive(true)
+    } else {
+      setLabel('Promo Closed')
     }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
-  }, [target])
+  }, [])
 
-  if (done) return null
-
+  if (!label) return null
   return (
-    <div className="flex flex-col items-center gap-3">
-      <p className="text-white/40 text-sm uppercase tracking-widest">{label}</p>
-      <div className="flex items-center gap-3">
-        {[
-          { v: t.days, l: 'Days' },
-          { v: t.hours, l: 'Hours' },
-          { v: t.minutes, l: 'Min' },
-          { v: t.seconds, l: 'Sec' },
-        ].map(({ v, l }, i) => (
-          <div key={l} className="flex items-center gap-3">
-            {i > 0 && <span className="text-white/20 text-2xl font-light mb-4">:</span>}
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-surface-700 border border-white/[0.08] flex items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-bold font-mono tabular-nums text-gradient-gold">
-                  {String(v).padStart(2, '0')}
-                </span>
-              </div>
-              <span className="text-white/30 text-xs mt-1.5 uppercase tracking-wider">{l}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const AFFILIATE_OPEN = new Date('2026-05-18T06:00:00-07:00')
-const SITEWIDE_OPEN = new Date('2026-05-19T00:00:00-07:00')
-const FINAL_CLOSE = new Date('2026-06-05T23:59:00-07:00')
-
-function StatusBadge() {
-  const now = new Date()
-  if (now < AFFILIATE_OPEN) {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gold-400 bg-gold-500/10 border border-gold-500/20 px-3 py-1 rounded-full">
-        <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-        Affiliate Early Access Opens May 18
-      </span>
-    )
-  }
-  if (now >= AFFILIATE_OPEN && now < SITEWIDE_OPEN) {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-gold-400 bg-gold-500/10 border border-gold-500/20 px-3 py-1 rounded-full">
-        <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
-        Affiliate Exclusive Window — Live Now
-      </span>
-    )
-  }
-  if (now >= SITEWIDE_OPEN && now < FINAL_CLOSE) {
-    return (
-      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-3 py-1 rounded-full">
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-        Cart Open — Championship Live
-      </span>
-    )
-  }
-  return (
-    <span className="inline-flex items-center gap-1.5 text-xs font-medium text-white/40 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
-      Promo Closed
+    <span className="inline-flex items-center gap-2 text-[11px] font-bold tracking-widest uppercase bg-white/10 border border-white/20 text-white/80 rounded-full px-4 py-1.5">
+      {live && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
+      {label}
     </span>
   )
 }
 
 export default function Hero() {
-  const now = new Date()
-  const countdownTarget = now < AFFILIATE_OPEN ? AFFILIATE_OPEN : now < FINAL_CLOSE ? FINAL_CLOSE : null
-  const countdownLabel = now < AFFILIATE_OPEN ? 'Affiliate early access opens in' : 'Cart closes in'
-
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-14 px-4 overflow-hidden">
-      {/* Background grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
-      {/* Radial glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold-500/5 blur-[120px] pointer-events-none" />
+    <div id="overview" className="border border-white/[0.08] rounded-[8px] p-10 mb-8 text-white" style={{ background: 'linear-gradient(135deg, #1e1810 0%, #161410 30%, #111111 65%, #0f0f0f 100%)', boxShadow: '0 2px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(214,161,81,0.08)' }}>
+      <StatusPill />
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 py-20">
-        <StatusBadge />
+      <h1 className="text-[30px] font-black tracking-tight leading-tight mt-5 mb-5">
+        May 2026 Partner Promo<br />
+        <span className="text-white/55 font-bold text-[22px]">Everything you need to win.</span>
+      </h1>
 
-        <div className="space-y-4">
-          <p className="text-white/40 text-sm uppercase tracking-[0.3em] font-medium">
-            May 2026 Partner Championship
-          </p>
-          <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[1.05]">
-            <span className="text-white">50% Off Kajabi.</span>
-            <br />
-            <span className="text-gradient-gold">$250,000</span>
-            <span className="text-white"> in Prizes.</span>
-          </h1>
-          <p className="text-xl text-white/50 max-w-2xl mx-auto leading-relaxed">
-            The biggest promo in Kajabi history. New &amp; churned customers only.
-            Affiliate early access starts May 18 — sitewide May 19 through June 5.
-          </p>
-        </div>
+      <div className="flex flex-wrap gap-2 mb-5">
+        {['Partner Program', 'Kajabi Hero Access', 'May 18 – June 5, 2026'].map(p => (
+          <span key={p} className="bg-white/[0.07] border border-white/10 rounded-full px-3.5 py-1 text-[12px] font-medium text-white/65">{p}</span>
+        ))}
+      </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <a
-            href="#prizes"
-            className="px-6 py-3 bg-gold-500 hover:bg-gold-400 text-black font-bold rounded-lg transition-colors text-sm"
-          >
-            View Prize Structure
-          </a>
-          <a
-            href="#leaderboard"
-            className="px-6 py-3 bg-white/[0.06] hover:bg-white/[0.1] text-white font-semibold rounded-lg transition-colors border border-white/[0.08] text-sm"
-          >
-            Live Leaderboard
-          </a>
-        </div>
-
-        {/* Stats row */}
-        <div className="grid grid-cols-3 gap-4 pt-8 max-w-xl mx-auto">
-          {[
-            { value: '$250K', label: 'Prize Pool' },
-            { value: '3 Weeks', label: 'Championship' },
-            { value: '110+', label: 'Prizes Available' },
-          ].map(({ value, label }) => (
-            <div key={label} className="card-surface p-4 text-center">
-              <p className="text-2xl font-bold text-gradient-gold">{value}</p>
-              <p className="text-white/40 text-xs mt-1 uppercase tracking-wide">{label}</p>
-            </div>
-          ))}
-        </div>
-
-        {countdownTarget && (
-          <div className="pt-8">
-            <Countdown target={countdownTarget} label={countdownLabel} />
+      {/* Offer card */}
+      <div className="rounded-[8px] overflow-hidden mb-4 border border-white/[0.10]">
+        <div className="flex items-start gap-4 p-5" style={{ background: 'linear-gradient(135deg, rgba(214,161,81,0.07) 0%, rgba(255,255,255,0.03) 100%)' }}>
+          <div className="bg-[#D6A151] rounded-[6px] px-3.5 py-2.5 text-center shrink-0 min-w-[74px]">
+            <span className="block text-[28px] font-black leading-none tracking-tight text-[#070707]">50%</span>
+            <span className="block text-[10px] font-extrabold tracking-widest uppercase text-black/50 mt-0.5">Off</span>
           </div>
-        )}
+          <div className="flex-1">
+            <div className="text-[15px] font-extrabold tracking-tight text-white leading-snug mb-1.5">
+              50% off all Kajabi plans for 12 months. New customers only.
+            </div>
+            <div className="text-[12.5px] text-white/55 leading-relaxed">
+              Three weeks. Three major product launches. One leaderboard.{' '}
+              <strong className="text-white/85">$250,000 in prizes exclusively for partners.</strong>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-white/[0.08]">
+          <Cell label="Promo Window" value="May 18 – June 2" sub="Extended close June 5" />
+          <Cell label="New Products Launching" value="" chips />
+          <Cell label="Total Prize Pool" value="$250,000" sub="Partners only. Stacks with commission." amber />
+        </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg className="w-5 h-5 text-white/20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+      {/* 12-month advantage banner */}
+      <div className="bg-white/[0.05] border border-white/[0.15] border-l-[3px] border-l-[#D6A151] rounded-r-[8px] px-4 py-3 mb-4 text-[13px] text-white/80 leading-relaxed">
+        <strong className="text-white">Affiliate advantage:</strong> Customers who sign up through your link get 50% off for{' '}
+        <strong className="text-[#D6A151]">12 months</strong>. All other Kajabi channels only offer 6 months — your link is the best deal available.
       </div>
-    </section>
+
+      <div className="bg-white/[0.04] border border-white/[0.08] rounded-[8px] px-4 py-3.5 text-[13px] text-white/65 leading-relaxed">
+        <strong className="text-white/85">How to use this hub:</strong> Prizes and live leaderboard are at the top. Use the Earnings calculator to model your commission. Resources below have your affiliate link and messaging toolkit.
+      </div>
+    </div>
+  )
+}
+
+function Cell({ label, value, sub, amber, chips }: {
+  label: string; value?: string; sub?: string; amber?: boolean; chips?: boolean
+}) {
+  return (
+    <div className="px-4 py-3.5 border-r border-white/[0.08] last:border-r-0">
+      <div className="text-[10px] font-bold tracking-[0.09em] uppercase text-white/30 mb-1">{label}</div>
+      {chips ? (
+        <div className="flex flex-wrap gap-1 mt-1">
+          <span className="text-[10.5px] font-semibold px-2 py-0.5 rounded-sm border bg-[rgba(64,91,80,0.15)] text-[#405B50] border-[rgba(64,91,80,0.3)]">Backstage</span>
+          <span className="text-[10.5px] font-semibold px-2 py-0.5 rounded-sm border bg-[rgba(58,98,120,0.15)] text-[#3A6278] border-[rgba(58,98,120,0.3)]">Amplify</span>
+          <span className="text-[10.5px] font-semibold px-2 py-0.5 rounded-sm border bg-[rgba(82,64,91,0.15)] text-[#8B6FA3] border-[rgba(82,64,91,0.3)]">Cofounder</span>
+        </div>
+      ) : (
+        <div className={`text-[13px] font-bold tracking-tight leading-snug ${amber ? 'text-[#D6A151]' : 'text-white'}`}>
+          {value}
+          {sub && <span className="block text-[11.5px] font-normal text-white/45 mt-0.5">{sub}</span>}
+        </div>
+      )}
+    </div>
   )
 }

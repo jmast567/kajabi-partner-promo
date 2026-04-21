@@ -5,181 +5,213 @@ import { supabase } from '@/lib/supabase'
 import type { LeaderboardEntry } from '@/lib/types'
 
 const AFFILIATE_OPEN = new Date('2026-05-18T06:00:00-07:00')
+const PROMO_CLOSE    = new Date('2026-06-02T23:59:00-07:00')
 
-const TIER_PRIZE_MAP: Record<number, string> = {
-  1: 'Tesla Model Y 2026',
-  2: 'Dream Trip for 2',
-  3: 'Luxury Sauna',
-  4: 'La Marzocco Setup',
-  5: 'Cold Plunge Pro',
-  6: 'MacBook Pro 16"',
-  7: 'MacBook Pro 16"',
-  8: 'MacBook Pro 16"',
-  9: 'MacBook Pro 16"',
-  10: 'MacBook Pro 16"',
-  11: 'MacBook Air 15"',
-  12: 'MacBook Air 15"',
-  13: 'MacBook Air 15"',
-  14: 'MacBook Air 15"',
-  15: 'MacBook Air 15"',
-  16: 'iPad Pro 13"',
-  17: 'iPad Pro 13"',
-  18: 'iPad Pro 13"',
-  19: 'iPad Pro 13"',
-  20: 'iPad Pro 13"',
+const PRIZE: Record<number, string> = {
+  1: 'Tesla Model Y',  2: 'Dream Trip for 2',   3: 'The Sanctuary Sauna',
+  4: 'The Café Setup', 5: 'The Cold Plunge',
+  6: 'MacBook Pro', 7: 'MacBook Pro', 8: 'MacBook Pro', 9: 'MacBook Pro', 10: 'MacBook Pro',
+  11: 'MacBook Air', 12: 'MacBook Air', 13: 'MacBook Air', 14: 'MacBook Air', 15: 'MacBook Air',
+  16: 'iPad Pro',  17: 'iPad Pro',  18: 'iPad Pro',  19: 'iPad Pro',  20: 'iPad Pro',
 }
 
-function RankBadge({ rank }: { rank: number }) {
-  if (rank === 1) return <span className="text-lg">🥇</span>
-  if (rank === 2) return <span className="text-lg">🥈</span>
-  if (rank === 3) return <span className="text-lg">🥉</span>
-  return (
-    <span className="w-7 h-7 rounded-full bg-surface-600 border border-white/[0.08] flex items-center justify-center text-xs font-bold text-white/50">
-      {rank}
-    </span>
-  )
-}
+const PRIZE_REF = [
+  { rank: '🥇 #1',  name: 'Tesla Model Y',      value: '$55,000', req: '150 min', gold: true },
+  { rank: '🥈 #2',  name: 'Dream Trip for 2',   value: '$25,000', req: '100 min' },
+  { rank: '🥉 #3',  name: 'Sanctuary Sauna',    value: '$20,000', req: '75 min' },
+  { rank: '#4',      name: 'The Café Setup',     value: '$15,000', req: '50 min' },
+  { rank: '#5',      name: 'The Cold Plunge',    value: '$12,000', req: '25 min' },
+  { rank: '#6–10',   name: 'MacBook Pro 16"',    value: '$3,999 ea', req: '10 min' },
+  { rank: '#11–15',  name: 'MacBook Air 15"',    value: '$1,299 ea', req: '8 min' },
+  { rank: '#16–20',  name: 'iPad Pro 13"',       value: '$1,428 ea', req: '5 min' },
+]
 
-function TierLabel({ rank }: { rank: number }) {
-  if (rank <= 5) return <span className="text-xs text-gold-500 bg-gold-500/10 px-2 py-0.5 rounded-full">Elite</span>
-  if (rank <= 20) return <span className="text-xs text-white/40 bg-white/5 px-2 py-0.5 rounded-full">Mid Field</span>
-  return null
+function pad(n: number) { return String(n).padStart(2, '0') }
+
+function useCountdown(target: Date) {
+  const [t, setT] = useState<{ d: number; h: number; m: number; s: number } | null>(null)
+  useEffect(() => {
+    const tick = () => {
+      const diff = target.getTime() - Date.now()
+      if (diff <= 0) { setT(null); return }
+      setT({
+        d: Math.floor(diff / 86400000),
+        h: Math.floor((diff % 86400000) / 3600000),
+        m: Math.floor((diff % 3600000) / 60000),
+        s: Math.floor((diff % 60000) / 1000),
+      })
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [target])
+  return t
 }
 
 export default function Leaderboard() {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading]     = useState(true)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
   const [isLive] = useState(() => new Date() >= AFFILIATE_OPEN)
+  const countdown = useCountdown(PROMO_CLOSE)
 
   const fetchEntries = useCallback(async () => {
     const { data, error } = await supabase
       .from('leaderboard')
       .select('*')
       .order('rank', { ascending: true })
-    if (!error && data) {
-      setEntries(data)
-      setLastUpdated(new Date())
-    }
+    if (!error && data) { setEntries(data); setLastUpdated(new Date()) }
     setLoading(false)
   }, [])
 
   useEffect(() => {
     if (!isLive) { setLoading(false); return }
-
     fetchEntries()
-
-    const channel = supabase
-      .channel('leaderboard_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'leaderboard' }, () => {
-        fetchEntries()
-      })
+    const ch = supabase
+      .channel('lb')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'leaderboard' }, fetchEntries)
       .subscribe()
-
-    return () => { supabase.removeChannel(channel) }
+    return () => { supabase.removeChannel(ch) }
   }, [isLive, fetchEntries])
 
+  const top3  = entries.slice(0, 3)
+  const rest  = entries.slice(3)
+
   return (
-    <section id="leaderboard" className="section-divider py-24 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <p className="text-gold-500 text-sm uppercase tracking-widest font-medium mb-3">Championship</p>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white">Live Leaderboard</h2>
-          {isLive && lastUpdated && (
-            <div className="flex items-center justify-center gap-2 mt-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-white/30 text-xs">
-                Live · Last updated {lastUpdated.toLocaleTimeString()}
-              </span>
+    <div id="leaderboard" className="section-card">
+
+      {/* Header */}
+      <div className="section-head">
+        <div>
+          <h2 className="text-[17px] font-extrabold tracking-tight">Live Leaderboard</h2>
+          <p className="text-[12px] text-white/55 mt-1">Standings update in real time. Final lock: June 2 at 11:59 PM PST.</p>
+        </div>
+        <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase text-white/45 shrink-0 pt-0.5">
+          <span className={`w-[7px] h-[7px] rounded-full ${isLive ? 'bg-emerald-400 animate-pulse-dot' : 'bg-white/20'}`} />
+          {isLive ? 'Live' : 'Opens May 18'}
+        </div>
+      </div>
+
+      <div className="section-body">
+
+        {/* Countdown bar */}
+        <div className="border-b border-white/[0.06] px-7 py-4 flex flex-wrap items-center gap-5">
+          <span className="text-[11px] font-bold tracking-widest uppercase text-white/30 shrink-0">
+            {countdown ? 'Closes in' : 'Promo closed'}
+          </span>
+          {countdown && (
+            <div className="flex items-center gap-1.5">
+              {[
+                { v: countdown.d, l: 'Days' },
+                { v: countdown.h, l: 'Hrs' },
+                { v: countdown.m, l: 'Min' },
+                { v: countdown.s, l: 'Sec' },
+              ].map(({ v, l }, i) => (
+                <div key={l} className="flex items-center gap-1.5">
+                  {i > 0 && <span className="text-[20px] font-black text-white/20 -mt-1.5">:</span>}
+                  <div className="text-center">
+                    <span className="block text-[22px] font-black tracking-tighter text-white leading-none min-w-[36px] tabular-nums">{pad(v)}</span>
+                    <span className="block text-[9px] font-bold tracking-widest uppercase text-white/30 mt-0.5">{l}</span>
+                  </div>
+                </div>
+              ))}
             </div>
+          )}
+          <span className="ml-auto text-[11.5px] text-white/35 font-medium">
+            June 2, 2026 · <strong className="text-white/65">11:59 PM PST</strong>
+          </span>
+        </div>
+
+        {/* Prize reference row */}
+        <div className="px-7 pt-5">
+          <div className="text-[10px] font-bold tracking-widest uppercase text-white/30 mb-2.5">Prize at stake by position</div>
+          <div className="flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+            {PRIZE_REF.map(({ rank, name, value, req, gold }) => (
+              <div key={rank} className={`border rounded-[8px] px-3 py-2.5 shrink-0 text-center min-w-[112px] ${
+                gold ? 'border-[#D6A151]/50 bg-[rgba(214,161,81,0.06)]' : 'border-white/[0.08] bg-white/[0.025]'
+              }`}>
+                <div className={`text-[9px] font-extrabold tracking-wide uppercase mb-0.5 ${gold ? 'text-[#D6A151]' : 'text-white/30'}`}>{rank}</div>
+                <div className="text-[11.5px] font-bold text-white leading-tight mb-0.5">{name}</div>
+                <div className={`text-[12px] font-extrabold mb-0.5 ${gold ? 'text-[#D6A151]' : 'text-[#AD715C]'}`}>{value}</div>
+                <div className="text-[10px] text-white/35">{req}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Standings */}
+        <div className="px-7 pt-5 pb-7">
+          <div className="text-[10px] font-bold tracking-widest uppercase text-white/30 mb-2.5">Current standings</div>
+
+          {!isLive ? (
+            <div className="border border-dashed border-white/[0.12] rounded-[8px] px-4 py-3.5 text-[12.5px] text-white/40 text-center leading-relaxed">
+              <strong className="text-white/70">Leaderboard opens May 18.</strong> Once the promo window opens, standings populate here in real time. Check back after launch.
+            </div>
+          ) : loading ? (
+            <div className="space-y-2">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="h-14 rounded-[8px] bg-white/[0.04] animate-pulse" />
+              ))}
+            </div>
+          ) : entries.length === 0 ? (
+            <div className="border border-dashed border-white/[0.12] rounded-[8px] px-4 py-3.5 text-[12.5px] text-white/40 text-center">
+              No entries yet. Partners need a minimum of 25 sign-ups to appear on the public leaderboard.
+            </div>
+          ) : (
+            <>
+              {/* Podium */}
+              {top3.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
+                  {top3.map((e) => (
+                    <div key={e.id} className={`border rounded-[8px] p-3.5 text-center animate-fade-in ${
+                      e.rank === 1 ? 'border-[#D6A151]/50 bg-[rgba(214,161,81,0.06)]' :
+                      e.rank === 2 ? 'border-white/15 bg-white/[0.04]' :
+                      'border-white/[0.08] bg-white/[0.025]'
+                    }`}>
+                      <div className={`text-[11px] font-extrabold tracking-wide mb-1.5 ${
+                        e.rank === 1 ? 'text-[#D6A151]' : e.rank === 2 ? 'text-white/50' : 'text-white/30'
+                      }`}>
+                        {e.rank === 1 ? '🥇 #1' : e.rank === 2 ? '🥈 #2' : '🥉 #3'}
+                      </div>
+                      <div className="text-[14px] font-extrabold text-white tracking-tight mb-1">{e.partner_name}</div>
+                      <div className="text-[20px] font-black text-white leading-none tabular-nums">{e.gsas}</div>
+                      <div className="text-[10px] font-semibold text-white/40 uppercase tracking-wide">sign-ups</div>
+                      <span className="inline-block mt-2 text-[11.5px] font-bold text-white/80 bg-white/[0.08] border border-white/[0.12] px-2.5 py-0.5 rounded-sm">
+                        {PRIZE[e.rank] ?? e.prize_name ?? '—'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Rows 4+ */}
+              {rest.length > 0 && (
+                <div className="border border-white/[0.08] rounded-[8px] overflow-hidden">
+                  {rest.map((e) => (
+                    <div key={e.id} className="grid grid-cols-[36px_1fr_auto_auto] items-center px-4 py-2.5 border-b border-white/[0.06] last:border-b-0 gap-3 text-[13px] hover:bg-white/[0.03] transition-colors animate-fade-in">
+                      <span className="text-[12px] font-bold text-white/30 text-center">#{e.rank}</span>
+                      <div>
+                        <div className="font-semibold text-white tracking-tight">{e.partner_name}</div>
+                      </div>
+                      <span className="text-[12px] font-semibold text-white/45 whitespace-nowrap">{e.gsas} sign-ups</span>
+                      <span className="text-[11px] font-bold text-white/40 bg-white/[0.05] border border-white/[0.08] rounded-sm px-1.5 py-0.5 whitespace-nowrap">
+                        {PRIZE[e.rank] ?? e.prize_name ?? '—'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {lastUpdated && (
+                <p className="text-center text-[11.5px] text-white/25 pt-4">
+                  Updated {lastUpdated.toLocaleTimeString()} · Changes reflect in real time
+                </p>
+              )}
+            </>
           )}
         </div>
 
-        {!isLive ? (
-          <div className="card-surface p-12 text-center space-y-4">
-            <div className="text-5xl">🏁</div>
-            <h3 className="text-xl font-bold text-white">Leaderboard Opens May 18</h3>
-            <p className="text-white/40 max-w-md mx-auto">
-              The Championship begins when affiliate early access opens at 6 AM PST on May 18.
-              Check back then to track live standings.
-            </p>
-            <p className="text-white/20 text-sm">
-              Partners need a minimum of 15 GSAs to appear on the public leaderboard.
-            </p>
-          </div>
-        ) : loading ? (
-          <div className="space-y-2">
-            {[...Array(10)].map((_, i) => (
-              <div key={i} className="card-surface h-16 animate-pulse" />
-            ))}
-          </div>
-        ) : entries.length === 0 ? (
-          <div className="card-surface p-12 text-center">
-            <p className="text-white/40">No partners on the leaderboard yet. First to hit 15 GSAs will appear here.</p>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {/* Header */}
-            <div className="grid grid-cols-[48px_1fr_80px_80px_120px] gap-4 px-4 pb-2 text-xs text-white/30 uppercase tracking-widest">
-              <span>Rank</span>
-              <span>Partner</span>
-              <span className="text-right">GSAs</span>
-              <span className="hidden sm:block" />
-              <span className="text-right hidden sm:block">Prize</span>
-            </div>
-
-            {entries.map((entry, idx) => (
-              <div
-                key={entry.id}
-                className={`grid grid-cols-[48px_1fr_80px_80px_120px] gap-4 items-center px-4 py-4 rounded-xl border transition-colors animate-fade-in ${
-                  entry.rank <= 5
-                    ? 'bg-gold-500/5 border-gold-500/20 hover:border-gold-500/30'
-                    : 'card-surface hover:border-white/[0.12]'
-                }`}
-                style={{ animationDelay: `${idx * 50}ms` }}
-              >
-                <div className="flex items-center justify-center">
-                  <RankBadge rank={entry.rank} />
-                </div>
-
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-white truncate">{entry.partner_name}</span>
-                    <TierLabel rank={entry.rank} />
-                  </div>
-                </div>
-
-                <div className="text-right">
-                  <span className="font-bold text-white tabular-nums">{entry.gsas}</span>
-                  <span className="text-white/30 text-xs ml-1">GSAs</span>
-                </div>
-
-                {/* GSA bar (visible on sm+) */}
-                <div className="hidden sm:block">
-                  <div className="h-1.5 bg-surface-600 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-500 ${
-                        entry.rank <= 5 ? 'bg-gold-500' : 'bg-white/30'
-                      }`}
-                      style={{ width: `${Math.min((entry.gsas / 80) * 100, 100)}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="hidden sm:block text-right">
-                  <span className="text-xs text-white/40 truncate">
-                    {TIER_PRIZE_MAP[entry.rank] ?? entry.prize_name ?? '—'}
-                  </span>
-                </div>
-              </div>
-            ))}
-
-            <p className="text-center text-white/20 text-xs pt-4">
-              Minimum 15 GSAs to appear · Updated every Friday · Rankings verified at close
-            </p>
-          </div>
-        )}
       </div>
-    </section>
+    </div>
   )
 }

@@ -4,44 +4,134 @@
 
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
+  --amber: #D6A151;
+  --terra: #AD715C;
+  --forest: #405B50;
+  --blue: #3A6278;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background-color: #070707;
-  color: #ffffff;
+  background-image:
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(214,161,81,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 80% 20%, rgba(173,113,92,0.04) 0%, transparent 60%);
+  background-attachment: fixed;
+  color: rgba(255, 255, 255, 0.85);
   font-family: var(--font-inter);
+  font-size: 15px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-gradient-gold {
-    background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .border-gold-glow {
-    border-color: rgba(245, 158, 11, 0.4);
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
-  }
-
-  .card-surface {
-    background-color: #0f0f0f;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 12px;
-  }
-
-  .section-divider {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
+/* ── Section card pattern ── */
+.section-card {
+  margin-bottom: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4);
 }
 
-/* Scrollbar */
+.section-head {
+  background: linear-gradient(135deg, #1c1a18 0%, #141414 50%, #111111 100%);
+  color: rgba(255,255,255,0.9);
+  padding: 22px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.section-body {
+  background: linear-gradient(180deg, #0f0f0f 0%, #0b0b0b 100%);
+  overflow: hidden;
+  border-radius: 0 0 10px 10px;
+}
+
+/* ── Surface cards ── */
+.card-dark {
+  background: #141414;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+}
+
+.card-dark-alt {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+}
+
+/* ── Email / copy cards ── */
+.email-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.email-card:last-child { margin-bottom: 0; }
+
+.email-meta {
+  background: rgba(255,255,255,0.04);
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.email-body {
+  padding: 18px 16px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  white-space: pre-line;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Inline placeholders */
+.ph {
+  background: rgba(214,161,81,0.15);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 12px;
+  font-family: "SF Mono", Menlo, monospace;
+  color: var(--amber);
+}
+
+.link-ph {
+  display: inline-block;
+  background: rgba(255,255,255,0.05);
+  border: 1px dashed rgba(255,255,255,0.2);
+  border-radius: 4px;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  margin: 4px 0;
+}
+
+/* ── Tier label ── */
+.tier-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── Text utilities ── */
+.text-amber  { color: var(--amber); }
+.text-terra  { color: var(--terra); }
+.text-forest { color: var(--forest); }
+.text-muted  { color: rgba(255,255,255,0.45); }
+.text-faint  { color: rgba(255,255,255,0.25); }
+
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #070707; }
 ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import PartnerChat from '@/components/PartnerChat'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -9,15 +10,18 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Kajabi Partner Championship — May 2026',
-  description: '50% off all Kajabi plans. $250,000 in prizes. May 18 – June 5, 2026.',
+  title: 'May 2026 Partner Promo — Kajabi',
+  description: '50% off Kajabi for 12 months. $250,000 in prizes. Affiliate early access May 18.',
   robots: 'noindex, nofollow',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <PartnerChat />
+      </body>
     </html>
   )
 }

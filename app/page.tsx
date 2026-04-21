@@ -1,27 +1,27 @@
-import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import OfferDetails from '@/components/OfferDetails'
-import Timeline from '@/components/Timeline'
-import Prizes from '@/components/Prizes'
-import Leaderboard from '@/components/Leaderboard'
+import Nav           from '@/components/Nav'
+import Hero          from '@/components/Hero'
+import Prizes        from '@/components/Prizes'
+import Leaderboard   from '@/components/Leaderboard'
 import CommissionCalc from '@/components/CommissionCalc'
-import Resources from '@/components/Resources'
-import Footer from '@/components/Footer'
+import Messaging     from '@/components/Messaging'
+import FAQ           from '@/components/FAQ'
+import Resources     from '@/components/Resources'
+import Footer        from '@/components/Footer'
 
 export default function Home() {
   return (
     <>
       <Nav />
-      <main>
+      <main className="max-w-[860px] mx-auto px-6 py-10 pb-20">
         <Hero />
-        <OfferDetails />
-        <Timeline />
         <Prizes />
         <Leaderboard />
         <CommissionCalc />
+        <Messaging />
+        <FAQ />
         <Resources />
+        <Footer />
       </main>
-      <Footer />
     </>
   )
 }

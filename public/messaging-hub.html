@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May 2026 Partner Championship Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:       #0A0A0A;
+    --gray-900:    #1F1F1E;
+    --gray-700:    #535250;
+    --gray-500:    #949189;
+    --gray-300:    #BCB9AE;
+    --gray-200:    #D4D3CE;
+    --gray-100:    #E9E8E7;
+    --gray-50:     #F1F0EF;
+    --white:       #FDFDFC;
+    --bg:          #F8F8F6;
+    --terracotta:  #AD715C;
+    --amber:       #D6A151;
+    --steel-blue:  #3A6278;
+    --forest:      #405B50;
+    --deep-purple: #52405B;
+    --radius:      8px;
+    --font:        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--black); font-size: 14px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  /* ── NAV ── */
+  nav { background: var(--black); padding: 0 32px; display: flex; align-items: center; gap: 4px; position: sticky; top: 0; z-index: 100; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--gray-900); }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-logo { font-size: 13px; font-weight: 800; letter-spacing: -0.02em; color: var(--white); padding: 14px 0; margin-right: 16px; white-space: nowrap; flex-shrink: 0; }
+  nav a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 12px; font-weight: 500; padding: 14px 12px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.15s; letter-spacing: 0.01em; }
+  nav a:hover { color: rgba(255,255,255,0.85); }
+  nav a.active { color: var(--white); border-bottom-color: var(--white); }
+
+  /* ── LAYOUT ── */
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── DOC HEADER ── */
+  .doc-header { background: var(--black); border-radius: var(--radius); padding: 40px 44px; color: var(--white); margin-bottom: 32px; }
+  .doc-header h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 20px; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .meta-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 4px 14px; font-size: 12px; color: rgba(255,255,255,0.75); font-weight: 500; }
+  .embargo-banner { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.2); border-left: 3px solid var(--white); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 16px; }
+  .how-to-box { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 16px 18px; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+  .how-to-box strong { color: var(--white); font-weight: 600; }
+  .promo-hero { margin-top: 24px; border-radius: var(--radius); overflow: hidden; }
+  .promo-hero-offer { background: var(--white); border: 1px solid rgba(255,255,255,0.18); padding: 20px 20px 16px; display: flex; align-items: flex-start; gap: 16px; }
+  .offer-badge { background: var(--black); color: var(--white); border-radius: 6px; padding: 10px 14px; text-align: center; flex-shrink: 0; min-width: 74px; }
+  .offer-badge .pct { font-size: 28px; font-weight: 900; line-height: 1; letter-spacing: -0.04em; color: var(--white); display: block; }
+  .offer-badge .off { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); display: block; margin-top: 1px; }
+  .offer-details { flex: 1; }
+  .offer-headline { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--black); line-height: 1.25; margin-bottom: 6px; }
+  .offer-subline { font-size: 12.5px; color: var(--gray-500); line-height: 1.5; }
+  .offer-subline strong { color: var(--black); font-weight: 600; }
+  .promo-info-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--gray-100); }
+  @media (max-width: 580px) { .promo-info-grid { grid-template-columns: 1fr; } }
+  .promo-info-cell { padding: 14px 16px; border-right: 1px solid var(--gray-100); background: var(--white); }
+  .promo-info-cell:last-child { border-right: none; }
+  .info-cell-label { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 5px; }
+  .info-cell-value { font-size: 13px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; line-height: 1.35; }
+  .info-cell-value .sub { font-size: 11.5px; font-weight: 400; color: var(--gray-500); display: block; margin-top: 2px; }
+  .product-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .product-chip { font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 3px; border: 1px solid; }
+  .chip-backstage { background: rgba(64,91,80,0.08); color: var(--forest); border-color: rgba(64,91,80,0.2); }
+  .chip-amplify   { background: rgba(58,98,120,0.08); color: var(--steel-blue); border-color: rgba(58,98,120,0.2); }
+  .chip-cofounder { background: rgba(82,64,91,0.08); color: var(--deep-purple); border-color: rgba(82,64,91,0.2); }
+  .prize-num { font-size: 17px; font-weight: 900; letter-spacing: -0.03em; color: var(--amber); }
+
+  /* ── SECTION WRAPPER ── */
+  .section { margin-bottom: 40px; }
+  .section-header { background: var(--black); border-radius: var(--radius) var(--radius) 0 0; padding: 22px 28px; color: var(--white); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .section-header-left h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.2; }
+  .section-header-left p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; font-weight: 400; }
+  .section-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35); letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; padding-top: 2px; }
+  .section-body { background: var(--white); border: 1px solid var(--gray-100); border-top: none; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+
+  /* ── PRIZE SECTION ── */
+  .prize-body { padding: 28px; }
+  .prize-tier-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
+  .prize-tier-label span { color: var(--black); }
+
+  /* Tier 1 */
+  .t1-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 24px; }
+  @media (max-width: 700px) { .t1-grid { grid-template-columns: repeat(2, 1fr); } }
+  .t1-card { border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px 12px; background: var(--white); position: relative; }
+  .t1-card.rank-1 { border-color: var(--amber); background: rgba(214,161,81,0.04); }
+  .t1-card.rank-2 { border-color: var(--gray-200); background: var(--gray-50); }
+  .t1-card.rank-3 { border-color: var(--gray-100); }
+  .t1-rank { font-size: 10px; font-weight: 800; letter-spacing: 0.04em; color: var(--gray-300); margin-bottom: 6px; text-transform: uppercase; }
+  .t1-card.rank-1 .t1-rank { color: var(--amber); }
+  .t1-card.rank-2 .t1-rank { color: var(--gray-500); }
+  .t1-prize-name { font-size: 13px; font-weight: 800; letter-spacing: -0.02em; color: var(--black); margin-bottom: 4px; line-height: 1.25; }
+  .t1-value { font-size: 13px; font-weight: 700; color: var(--terracotta); margin-bottom: 4px; }
+  .t1-min { font-size: 10.5px; color: var(--gray-500); font-weight: 500; }
+  .t1-min strong { color: var(--black); font-weight: 700; }
+
+  /* Tier 2 */
+  .t2-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+  @media (max-width: 580px) { .t2-grid { grid-template-columns: 1fr; } }
+  .t2-card { border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px 14px; background: var(--gray-50); }
+  .t2-rank { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; color: var(--gray-300); margin-bottom: 5px; text-transform: uppercase; }
+  .t2-prize-name { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 3px; letter-spacing: -0.01em; }
+  .t2-value { font-size: 12px; color: var(--gray-500); margin-bottom: 3px; }
+  .t2-min { font-size: 10.5px; color: var(--gray-500); }
+  .t2-min strong { color: var(--black); font-weight: 600; }
+
+  /* Tier 3 Milestone */
+  .t3-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 24px; }
+  @media (max-width: 700px) { .t3-grid { grid-template-columns: repeat(2, 1fr); } }
+  .t3-card { border: 1px solid rgba(64,91,80,0.2); border-radius: var(--radius); padding: 14px 12px; background: rgba(64,91,80,0.04); }
+  .t3-threshold { font-size: 11px; font-weight: 800; letter-spacing: 0.03em; color: var(--forest); margin-bottom: 5px; }
+  .t3-prize-name { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 3px; letter-spacing: -0.01em; }
+  .t3-value { font-size: 12px; color: var(--gray-500); margin-bottom: 3px; }
+  .t3-cap { font-size: 10.5px; color: var(--forest); font-weight: 500; }
+
+  /* Bonus awards strip */
+  .bonus-strip { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 0; }
+  .bonus-strip-head { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 12px; }
+  .bonus-awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  @media (max-width: 580px) { .bonus-awards-grid { grid-template-columns: 1fr 1fr; } }
+  .bonus-award-item { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 10px 12px; }
+  .bonus-award-name { font-size: 11.5px; font-weight: 700; color: var(--black); margin-bottom: 2px; letter-spacing: -0.01em; }
+  .bonus-award-when { font-size: 10.5px; color: var(--gray-500); }
+
+  /* ── INNER LABEL ── */
+  .inner-label { padding: 18px 28px 0; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray-300); }
+
+  /* ── EMAIL CARDS ── */
+  .email-stack { padding: 16px 28px 28px; display: flex; flex-direction: column; gap: 16px; }
+  .email-card { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .email-card-meta { background: var(--gray-50); padding: 10px 16px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 8px; }
+  .email-label { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gray-500); }
+  .tag { font-size: 11px; font-weight: 600; border-radius: 3px; padding: 2px 8px; background: var(--gray-100); color: var(--gray-700); }
+  .tag.dark { background: var(--black); color: var(--white); }
+  .email-subject { background: var(--gray-50); border-bottom: 1px solid var(--gray-100); padding: 9px 16px; font-size: 13px; display: flex; gap: 8px; align-items: baseline; }
+  .email-subject .field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); flex-shrink: 0; padding-top: 1px; }
+  .email-subject .field-value { font-weight: 600; color: var(--black); letter-spacing: -0.01em; }
+  .email-preview { background: var(--white); border-bottom: 1px solid var(--gray-100); padding: 8px 16px; font-size: 12px; display: flex; gap: 8px; align-items: baseline; }
+  .email-preview .field-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); flex-shrink: 0; padding-top: 1px; }
+  .email-preview .field-value { color: var(--gray-500); font-style: italic; }
+  .email-body { padding: 18px 16px; font-size: 13.5px; line-height: 1.75; white-space: pre-line; background: var(--white); color: var(--gray-900); }
+  .ph { background: #fef9c3; border-radius: 3px; padding: 1px 5px; font-size: 12px; font-family: "SF Mono", Menlo, monospace; color: #713f12; font-style: normal; }
+  .link-ph { display: inline-block; background: var(--gray-50); border: 1px dashed var(--gray-200); border-radius: 4px; padding: 4px 14px; font-size: 12px; font-weight: 700; color: var(--gray-700); margin: 4px 0; letter-spacing: 0.01em; }
+  .divider-line { border: none; border-top: 1px solid var(--gray-100); margin: 16px 0; }
+  .sub-divider { margin: 0 28px; border: none; border-top: 1px solid var(--gray-100); }
+
+  /* ── SOCIAL ── */
+  .social-section { padding: 0 28px 28px; }
+  .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 580px) { .social-grid { grid-template-columns: 1fr; } }
+  .social-card { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .social-card-head { background: var(--gray-50); border-bottom: 1px solid var(--gray-100); padding: 9px 13px; display: flex; align-items: center; gap: 8px; }
+  .platform-badge { width: 24px; height: 24px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; flex-shrink: 0; color: var(--white); background: var(--black); letter-spacing: -0.01em; }
+  .social-option-label { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gray-500); }
+  .social-card-body { padding: 13px; font-size: 13px; line-height: 1.7; white-space: pre-line; background: var(--white); color: var(--gray-900); }
+  .full-card { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; margin-top: 12px; }
+
+  /* ── TABLE ── */
+  .table-section { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; margin-bottom: 40px; }
+  .table-header { background: var(--black); color: var(--white); padding: 20px 28px; }
+  .table-header h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.025em; }
+  .table-header p { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { background: var(--gray-50); text-align: left; padding: 10px 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); border-bottom: 1px solid var(--gray-100); }
+  tbody td { padding: 13px 20px; font-size: 13px; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--gray-50); }
+  .td-section { font-weight: 600; font-size: 12px; color: var(--gray-500); }
+  .td-angle { color: var(--gray-500); font-size: 12px; }
+  .td-subject { font-weight: 600; letter-spacing: -0.01em; }
+  .td-timing { color: var(--gray-300); font-size: 12px; white-space: nowrap; }
+
+  /* ── FTC ── */
+  .ftc-section { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; margin-bottom: 40px; }
+  .ftc-header { background: var(--black); color: var(--white); padding: 20px 28px; }
+  .ftc-header h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.025em; }
+  .ftc-header p { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+  .ftc-body { padding: 28px; }
+  .ftc-body > p { font-size: 14px; color: var(--gray-700); margin-bottom: 24px; line-height: 1.65; }
+  .ftc-rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+  @media (max-width: 580px) { .ftc-rules { grid-template-columns: 1fr; } }
+  .ftc-rule { border: 1px solid var(--gray-100); border-top: 2px solid var(--black); border-radius: 0 0 var(--radius) var(--radius); padding: 14px 16px; background: var(--white); }
+  .ftc-rule strong { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.01em; color: var(--black); margin-bottom: 5px; }
+  .ftc-rule span { font-size: 12.5px; color: var(--gray-500); line-height: 1.5; }
+  .disclosure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  @media (max-width: 580px) { .disclosure-grid { grid-template-columns: 1fr; } }
+  .disclosure-card { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .disclosure-card-head { background: var(--gray-50); border-bottom: 1px solid var(--gray-100); padding: 9px 14px; display: flex; align-items: center; gap: 8px; }
+  .disclosure-card-head strong { font-size: 12px; font-weight: 700; color: var(--black); }
+  .disclosure-card-body { padding: 14px; }
+  .disclosure-card-body .hint { font-size: 11.5px; color: var(--gray-300); margin-bottom: 10px; line-height: 1.5; }
+  .disclosure-option { border-left: 2px solid var(--gray-200); padding: 8px 12px; margin-bottom: 8px; font-size: 12.5px; font-style: italic; color: var(--gray-700); background: var(--gray-50); border-radius: 0 4px 4px 0; line-height: 1.5; }
+  .disclosure-option:last-child { margin-bottom: 0; }
+  .ftc-legal { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 12px 16px; font-size: 11.5px; color: var(--gray-500); margin-top: 24px; line-height: 1.55; }
+
+  /* ── MESSAGING ── */
+  .msg-body { padding: 28px; }
+  .msg-big-idea { background: var(--black); color: var(--white); border-radius: var(--radius); padding: 22px 24px; margin-bottom: 24px; }
+  .msg-big-idea-label { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+  .msg-big-idea-line { font-size: 18px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.25; color: var(--white); margin-bottom: 10px; }
+  .msg-big-idea p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.65; }
+  .msg-subsection { margin-bottom: 28px; }
+  .msg-subsection-title { font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
+  .msg-subsection p { font-size: 13.5px; color: var(--gray-700); line-height: 1.7; margin-bottom: 12px; }
+  .msg-subsection p:last-child { margin-bottom: 0; }
+  .msg-frame-examples { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .msg-frame-ex { border-left: 3px solid var(--black); background: var(--gray-50); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-size: 13px; font-style: italic; color: var(--gray-700); line-height: 1.55; }
+  .msg-do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 580px) { .msg-do-dont { grid-template-columns: 1fr; } }
+  .msg-do, .msg-dont { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .msg-do-head, .msg-dont-head { padding: 9px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid var(--gray-100); }
+  .msg-do-head { background: rgba(64,91,80,0.07); color: var(--forest); }
+  .msg-dont-head { background: rgba(173,113,92,0.08); color: var(--terracotta); }
+  .msg-do-body, .msg-dont-body { padding: 12px 14px; background: var(--white); }
+  .msg-bullet { font-size: 13px; color: var(--gray-700); line-height: 1.55; padding: 5px 0 5px 16px; position: relative; }
+  .msg-bullet::before { content: ''; position: absolute; left: 4px; top: 12px; width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); }
+  .msg-product-grid { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+  .msg-product-card { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .msg-product-head { padding: 14px 18px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--gray-100); }
+  .msg-product-head.backstage { background: rgba(64,91,80,0.06); }
+  .msg-product-head.amplify   { background: rgba(58,98,120,0.06); }
+  .msg-product-head.cofounder { background: rgba(82,64,91,0.06); }
+  .msg-product-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--black); }
+  .msg-product-tagline { font-size: 12px; color: var(--gray-500); margin-top: 1px; }
+  .msg-product-body { padding: 16px 18px; background: var(--white); }
+  .msg-product-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+  @media (max-width: 580px) { .msg-product-row { grid-template-columns: 1fr; } }
+  .msg-product-col-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 6px; }
+  .msg-product-col p { font-size: 13px; color: var(--gray-700); line-height: 1.6; }
+  .msg-angles { border-top: 1px solid var(--gray-100); padding-top: 12px; margin-top: 2px; }
+  .msg-angles-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 8px; }
+  .msg-angle { border-left: 2px solid var(--gray-200); padding: 7px 12px; margin-bottom: 6px; font-size: 12.5px; font-style: italic; color: var(--gray-700); background: var(--gray-50); border-radius: 0 4px 4px 0; line-height: 1.5; }
+  .msg-angle:last-child { margin-bottom: 0; }
+  .msg-audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  @media (max-width: 580px) { .msg-audience-grid { grid-template-columns: 1fr; } }
+  .msg-audience-card { border: 1px solid var(--gray-100); border-top: 2px solid var(--black); border-radius: 0 0 var(--radius) var(--radius); padding: 14px 16px; background: var(--white); }
+  .msg-audience-type { font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--black); margin-bottom: 6px; }
+  .msg-audience-card p { font-size: 12.5px; color: var(--gray-500); line-height: 1.55; }
+  .msg-audience-card strong { color: var(--black); font-weight: 600; }
+  .msg-tone-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+  @media (max-width: 580px) { .msg-tone-grid { grid-template-columns: 1fr; } }
+  .msg-tone-card { border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px 16px; background: var(--gray-50); }
+  .msg-tone-word { font-size: 13px; font-weight: 800; letter-spacing: -0.02em; color: var(--black); margin-bottom: 4px; }
+  .msg-tone-card p { font-size: 12.5px; color: var(--gray-500); line-height: 1.5; }
+  .msg-avoid-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .msg-avoid-pill { background: rgba(173,113,92,0.08); border: 1px solid rgba(173,113,92,0.2); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 500; color: var(--terracotta); text-decoration: line-through; text-decoration-color: rgba(173,113,92,0.4); }
+  .msg-not-this { background: var(--gray-50); border: 1px solid var(--gray-100); border-left: 3px solid var(--gray-300); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 18px; font-size: 13.5px; color: var(--gray-700); line-height: 1.65; margin-top: 12px; }
+  .msg-not-this strong { color: var(--black); font-weight: 700; }
+  .msg-meta-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .msg-meta-item { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 8px 14px; font-size: 12px; color: var(--gray-700); line-height: 1.4; }
+  .msg-meta-item span { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 2px; }
+  .msg-meta-item strong { font-weight: 700; color: var(--black); }
+
+  /* ── PERSONALIZATION ── */
+  .personal-section { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 28px; margin-bottom: 40px; }
+  .personal-section h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 6px; }
+  .personal-section > p { font-size: 13.5px; color: var(--gray-500); margin-bottom: 20px; line-height: 1.6; }
+  .tip-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 580px) { .tip-row { grid-template-columns: 1fr; } }
+  .tip-card { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 16px; font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+  .tip-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--black); color: var(--white); border-radius: 50%; font-size: 11px; font-weight: 800; margin-bottom: 8px; }
+
+  /* ── LEADERBOARD ── */
+  .leaderboard-section { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; margin-bottom: 40px; }
+  .lb-header { background: var(--black); color: var(--white); padding: 22px 28px 20px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .lb-header-left h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.2; }
+  .lb-header-left p { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+  .lb-live-badge { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); padding-top: 2px; flex-shrink: 0; }
+  .lb-live-dot { width: 7px; height: 7px; border-radius: 50%; background: #6ee7a0; animation: pulse-dot 1.8s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.75); } }
+
+  /* Countdown */
+  .lb-countdown-bar { background: var(--gray-50); border-bottom: 1px solid var(--gray-100); padding: 16px 28px; display: flex; align-items: center; gap: 20px; }
+  .lb-countdown-label { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--gray-300); flex-shrink: 0; }
+  .lb-countdown-units { display: flex; gap: 6px; align-items: center; }
+  .lb-unit { text-align: center; }
+  .lb-unit-num { font-size: 22px; font-weight: 900; letter-spacing: -0.04em; color: var(--black); line-height: 1; display: block; min-width: 36px; }
+  .lb-unit-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-300); display: block; margin-top: 2px; }
+  .lb-unit-sep { font-size: 20px; font-weight: 900; color: var(--gray-200); line-height: 1; margin-top: -6px; }
+  .lb-countdown-end { margin-left: auto; font-size: 11.5px; color: var(--gray-500); font-weight: 500; }
+  .lb-countdown-end strong { color: var(--black); font-weight: 700; }
+
+  /* Prize at stake */
+  .lb-prize-ref { padding: 18px 28px 0; }
+  .lb-prize-ref-label { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 10px; }
+  .lb-prize-ref-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; margin-bottom: 18px; }
+  .lb-prize-ref-row::-webkit-scrollbar { display: none; }
+  .lb-prize-ref-card { border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 10px 12px; flex-shrink: 0; text-align: center; background: var(--white); min-width: 110px; }
+  .lb-prize-ref-card.gold { border-color: var(--amber); background: rgba(214,161,81,0.05); }
+  .lb-prize-ref-rank { font-size: 9px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 3px; }
+  .lb-prize-ref-card.gold .lb-prize-ref-rank { color: var(--amber); }
+  .lb-prize-ref-name { font-size: 11.5px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; margin-bottom: 2px; }
+  .lb-prize-ref-req { font-size: 10px; color: var(--gray-500); }
+
+  /* Rankings */
+  .lb-rankings { padding: 0 28px 28px; }
+  .lb-rank-label { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gray-300); margin-bottom: 10px; }
+  .lb-podium { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  @media (max-width: 580px) { .lb-podium { grid-template-columns: 1fr; } }
+  .lb-podium-card { border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px; text-align: center; background: var(--white); }
+  .lb-podium-card.rank-1 { border-color: var(--amber); background: rgba(214,161,81,0.04); }
+  .lb-podium-card.rank-2 { border-color: var(--gray-200); background: var(--gray-50); }
+  .lb-rank-num { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: var(--gray-300); margin-bottom: 6px; }
+  .lb-podium-card.rank-1 .lb-rank-num { color: var(--amber); }
+  .lb-podium-card.rank-2 .lb-rank-num { color: var(--gray-500); }
+  .lb-podium-name { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--black); margin-bottom: 4px; }
+  .lb-podium-niche { font-size: 11px; color: var(--gray-500); margin-bottom: 8px; line-height: 1.4; }
+  .lb-podium-signups { font-size: 20px; font-weight: 900; letter-spacing: -0.03em; color: var(--black); line-height: 1; }
+  .lb-podium-signups-label { font-size: 10px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.04em; text-transform: uppercase; }
+  .lb-podium-prize { display: inline-block; margin-top: 8px; font-size: 11.5px; font-weight: 700; color: var(--white); background: var(--black); padding: 3px 10px; border-radius: 3px; }
+  .lb-podium-card.rank-1 .lb-podium-prize { background: var(--terracotta); }
+  .lb-rest-table { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .lb-row { display: grid; grid-template-columns: 36px 1fr auto auto; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--gray-100); gap: 12px; font-size: 13px; }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:hover { background: var(--gray-50); }
+  .lb-row-rank { font-size: 12px; font-weight: 700; color: var(--gray-300); text-align: center; }
+  .lb-row-name { font-weight: 600; color: var(--black); letter-spacing: -0.01em; }
+  .lb-row-niche { font-size: 11.5px; color: var(--gray-500); margin-top: 1px; }
+  .lb-row-signups { font-size: 12px; font-weight: 600; color: var(--gray-500); white-space: nowrap; text-align: right; }
+  .lb-row-prize { font-size: 11px; font-weight: 700; color: var(--gray-500); white-space: nowrap; text-align: right; background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: 3px; padding: 2px 7px; }
+  .lb-placeholder-note { background: var(--gray-50); border: 1px dashed var(--gray-200); border-radius: var(--radius); padding: 14px 18px; font-size: 12.5px; color: var(--gray-500); text-align: center; margin-top: 16px; line-height: 1.55; }
+  .lb-placeholder-note strong { color: var(--black); font-weight: 700; }
+  .lb-sheet-config { background: rgba(64,91,80,0.04); border: 1px solid rgba(64,91,80,0.2); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px; font-size: 12px; color: var(--forest); }
+  .lb-sheet-config strong { font-weight: 700; }
+
+  /* ── FOOTER ── */
+  .doc-footer { text-align: center; font-size: 12px; color: var(--gray-300); padding-top: 8px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Kajabi Partners</span>
+  <a href="#overview">Overview</a>
+  <a href="#prizes">🏆 Prizes</a>
+  <a href="#leaderboard" class="active">Leaderboard</a>
+  <a href="#messaging">Messaging Guide</a>
+  <a href="#ftc">FTC</a>
+  <a href="#promo">50% Off Copy</a>
+  <a href="#backstage">Backstage</a>
+  <a href="#amplify">Amplify</a>
+  <a href="#cofounder">Cofounder</a>
+  <a href="#quickref">Quick Ref</a>
+</nav>
+
+<div class="wrapper">
+
+  <!-- ══ HEADER ══ -->
+  <div class="doc-header" id="overview">
+    <h1>May 2026 Partner Championship<br>Everything you need to win.</h1>
+    <div class="meta-row">
+      <span class="meta-pill">Partner Program</span>
+      <span class="meta-pill">Kajabi Hero Access</span>
+      <span class="meta-pill">May 18 – June 2, 2026</span>
+    </div>
+    <div class="promo-hero">
+      <div class="promo-hero-offer">
+        <div class="offer-badge">
+          <span class="pct">50%</span>
+          <span class="off">Off</span>
+        </div>
+        <div class="offer-details">
+          <div class="offer-headline">50% off all Kajabi plans. New customers only.</div>
+          <div class="offer-subline">
+            Three weeks. Three major product launches. One leaderboard. <strong>$250,000 in prizes exclusively for partners.</strong>
+          </div>
+        </div>
+      </div>
+      <div class="promo-info-grid">
+        <div class="promo-info-cell">
+          <div class="info-cell-label">Promo Window</div>
+          <div class="info-cell-value">May 18 – June 2
+            <span class="sub">Extended close June 5</span>
+          </div>
+        </div>
+        <div class="promo-info-cell">
+          <div class="info-cell-label">New Products Launching</div>
+          <div class="info-cell-value">
+            <div class="product-chips">
+              <span class="product-chip chip-backstage">Backstage</span>
+              <span class="product-chip chip-amplify">Amplify</span>
+              <span class="product-chip chip-cofounder">Cofounder</span>
+            </div>
+          </div>
+        </div>
+        <div class="promo-info-cell">
+          <div class="info-cell-label">Total Prize Pool</div>
+          <div class="info-cell-value">
+            <span class="prize-num">$250,000</span>
+            <span class="sub">Partners only. Stacks with commission.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="embargo-banner" style="margin-top:16px;">🔒 Embargo — Do not publish or send the discount until your partner link goes live on May 18</div>
+    <div class="how-to-box"><strong>How to use this hub:</strong> Prizes and leaderboard are at the top. Swipe copy and messaging guide are below. Customize where you see <span style="font-family:monospace;font-size:12px;background:rgba(255,255,255,0.15);padding:1px 5px;border-radius:3px;">[brackets]</span>.</div>
+  </div>
+
+  <!-- ══ PRIZES ══ -->
+  <div class="section" id="prizes">
+    <div class="section-header">
+      <div class="section-header-left">
+        <h2>Championship Prizes — $250,000</h2>
+        <p>Leaderboard, milestone, and bonus prizes all stack. You can win more than one.</p>
+      </div>
+      <span class="section-num">Prizes</span>
+    </div>
+    <div class="section-body">
+      <div class="prize-body">
+
+        <!-- Tier 1 -->
+        <div class="prize-tier-label">Tier 1 — Leaderboard Elite <span>· Top 5 by June 2 · $127,000 total</span></div>
+        <div class="t1-grid">
+          <div class="t1-card rank-1">
+            <div class="t1-rank">🥇 Rank #1</div>
+            <div class="t1-prize-name">Tesla Model Y 2026</div>
+            <div class="t1-value">$55,000</div>
+            <div class="t1-min">Min. <strong>150 sign-ups</strong></div>
+          </div>
+          <div class="t1-card rank-2">
+            <div class="t1-rank">🥈 Rank #2</div>
+            <div class="t1-prize-name">Dream Trip for 2</div>
+            <div class="t1-value">$25,000</div>
+            <div class="t1-min">Min. <strong>100 sign-ups</strong></div>
+          </div>
+          <div class="t1-card rank-3">
+            <div class="t1-rank">🥉 Rank #3</div>
+            <div class="t1-prize-name">The Sanctuary Sauna</div>
+            <div class="t1-value">$20,000</div>
+            <div class="t1-min">Min. <strong>75 sign-ups</strong></div>
+          </div>
+          <div class="t1-card">
+            <div class="t1-rank">Rank #4</div>
+            <div class="t1-prize-name">The Café Setup</div>
+            <div class="t1-value">$15,000</div>
+            <div class="t1-min">Min. <strong>50 sign-ups</strong></div>
+          </div>
+          <div class="t1-card">
+            <div class="t1-rank">Rank #5</div>
+            <div class="t1-prize-name">The Cold Plunge</div>
+            <div class="t1-value">$12,000</div>
+            <div class="t1-min">Min. <strong>25 sign-ups</strong></div>
+          </div>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="prize-tier-label">Tier 2 — Mid Field <span>· Ranks #6–20 · $35,000 total</span></div>
+        <div class="t2-grid">
+          <div class="t2-card">
+            <div class="t2-rank">Ranks #6–10</div>
+            <div class="t2-prize-name">MacBook Pro 16" M4 Max</div>
+            <div class="t2-value">$3,999 each · 5 winners</div>
+            <div class="t2-min">Min. <strong>10 sign-ups</strong></div>
+          </div>
+          <div class="t2-card">
+            <div class="t2-rank">Ranks #11–15</div>
+            <div class="t2-prize-name">MacBook Air 15" M3</div>
+            <div class="t2-value">$1,299 each · 5 winners</div>
+            <div class="t2-min">Min. <strong>8 sign-ups</strong></div>
+          </div>
+          <div class="t2-card">
+            <div class="t2-rank">Ranks #16–20</div>
+            <div class="t2-prize-name">iPad Pro 13" M4 + Pencil Pro</div>
+            <div class="t2-value">$1,428 each · 5 winners</div>
+            <div class="t2-min">Min. <strong>5 sign-ups</strong></div>
+          </div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="prize-tier-label">Tier 3 — Milestone Prizes <span>· First to hit threshold · $42,000 total · Open to all partners</span></div>
+        <div class="t3-grid">
+          <div class="t3-card">
+            <div class="t3-threshold">25+ sign-ups</div>
+            <div class="t3-prize-name">AirPods Max</div>
+            <div class="t3-value">$549 each</div>
+            <div class="t3-cap">Up to 30 winners</div>
+          </div>
+          <div class="t3-card">
+            <div class="t3-threshold">15+ sign-ups</div>
+            <div class="t3-prize-name">Apple Watch Series 10</div>
+            <div class="t3-value">$399 each</div>
+            <div class="t3-cap">Up to 25 winners</div>
+          </div>
+          <div class="t3-card">
+            <div class="t3-threshold">10+ sign-ups</div>
+            <div class="t3-prize-name">AirPods Pro 2nd gen</div>
+            <div class="t3-value">$249 each</div>
+            <div class="t3-cap">Up to 20 winners</div>
+          </div>
+          <div class="t3-card">
+            <div class="t3-threshold">5+ sign-ups</div>
+            <div class="t3-prize-name">Apple Store Gift Card</div>
+            <div class="t3-value">$250 each</div>
+            <div class="t3-cap">Up to 40 winners</div>
+          </div>
+        </div>
+
+        <!-- Bonus Awards -->
+        <div class="bonus-strip">
+          <div class="bonus-strip-head">Bonus &amp; Wildcard Awards — $46,000 · 6 awards · Stack on top of everything above</div>
+          <div class="bonus-awards-grid">
+            <div class="bonus-award-item">
+              <div class="bonus-award-name">Cart Open Bonus</div>
+              <div class="bonus-award-when">Top 2 partners in first 24 hrs · May 18</div>
+            </div>
+            <div class="bonus-award-item">
+              <div class="bonus-award-name">Week 2 Midpoint Draw</div>
+              <div class="bonus-award-when">Random draw · 1+ sign-up · ~May 25</div>
+            </div>
+            <div class="bonus-award-item">
+              <div class="bonus-award-name">Most Improved Award</div>
+              <div class="bonus-award-when">% lift vs. 3-week baseline · 3 winners · June 2</div>
+            </div>
+            <div class="bonus-award-item">
+              <div class="bonus-award-name">Most Creative Promo</div>
+              <div class="bonus-award-when">Submit to partners@kajabi.com by June 2</div>
+            </div>
+            <div class="bonus-award-item">
+              <div class="bonus-award-name">Highest Count — Extension</div>
+              <div class="bonus-award-when">Most sign-ups June 2–5 · $5,000 · 1 winner</div>
+            </div>
+            <div class="bonus-award-item">
+              <div class="bonus-award-name">Most Improved — Extension</div>
+              <div class="bonus-award-when">Biggest lift June 2–5 · $5,000 · 1 winner</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEADERBOARD ══ -->
+  <div class="leaderboard-section" id="leaderboard">
+    <div class="lb-header">
+      <div class="lb-header-left">
+        <h2>Live Leaderboard</h2>
+        <p>Standings refresh every Friday. Final lock: June 2 at 11:59 PM PST.</p>
+      </div>
+      <div class="lb-live-badge">
+        <span class="lb-live-dot"></span>
+        Live
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="lb-countdown-bar">
+      <span class="lb-countdown-label">Closes in</span>
+      <div class="lb-countdown-units">
+        <div class="lb-unit"><span class="lb-unit-num" id="cd-days">--</span><span class="lb-unit-label">Days</span></div>
+        <span class="lb-unit-sep">:</span>
+        <div class="lb-unit"><span class="lb-unit-num" id="cd-hours">--</span><span class="lb-unit-label">Hrs</span></div>
+        <span class="lb-unit-sep">:</span>
+        <div class="lb-unit"><span class="lb-unit-num" id="cd-mins">--</span><span class="lb-unit-label">Min</span></div>
+        <span class="lb-unit-sep">:</span>
+        <div class="lb-unit"><span class="lb-unit-num" id="cd-secs">--</span><span class="lb-unit-label">Sec</span></div>
+      </div>
+      <span class="lb-countdown-end">June 2, 2026 · 11:59 PM PST</span>
+    </div>
+
+    <!-- Prize at Stake reference -->
+    <div class="lb-prize-ref">
+      <div class="lb-prize-ref-label">Prize at stake by position</div>
+      <div class="lb-prize-ref-row">
+        <div class="lb-prize-ref-card gold">
+          <div class="lb-prize-ref-rank">🥇 #1</div>
+          <div class="lb-prize-ref-name">Tesla Model Y</div>
+          <div class="lb-prize-ref-req">150 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">🥈 #2</div>
+          <div class="lb-prize-ref-name">Dream Trip for 2</div>
+          <div class="lb-prize-ref-req">100 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">🥉 #3</div>
+          <div class="lb-prize-ref-name">The Sanctuary Sauna</div>
+          <div class="lb-prize-ref-req">75 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">#4</div>
+          <div class="lb-prize-ref-name">The Café Setup</div>
+          <div class="lb-prize-ref-req">50 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">#5</div>
+          <div class="lb-prize-ref-name">The Cold Plunge</div>
+          <div class="lb-prize-ref-req">25 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">#6–10</div>
+          <div class="lb-prize-ref-name">MacBook Pro 16"</div>
+          <div class="lb-prize-ref-req">10 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">#11–15</div>
+          <div class="lb-prize-ref-name">MacBook Air 15"</div>
+          <div class="lb-prize-ref-req">8 sign-ups min</div>
+        </div>
+        <div class="lb-prize-ref-card">
+          <div class="lb-prize-ref-rank">#16–20</div>
+          <div class="lb-prize-ref-name">iPad Pro 13"</div>
+          <div class="lb-prize-ref-req">5 sign-ups min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Standings -->
+    <div class="lb-rankings">
+      <div class="lb-rank-label">Current standings</div>
+
+      <div id="lb-live-note" class="lb-sheet-config" style="display:none;">
+        <strong>Live data connected.</strong> Standings update automatically from the partner leaderboard sheet.
+      </div>
+
+      <!-- Top 3 Podium -->
+      <div class="lb-podium" id="lb-podium">
+        <div class="lb-podium-card rank-1">
+          <div class="lb-rank-num">🥇 #1</div>
+          <div class="lb-podium-name" id="p1-name">[Partner Name]</div>
+          <div class="lb-podium-niche" id="p1-niche">Niche</div>
+          <div class="lb-podium-signups" id="p1-signups">--</div>
+          <div class="lb-podium-signups-label">sign-ups</div>
+          <div class="lb-podium-prize" id="p1-prize">Tesla Model Y</div>
+        </div>
+        <div class="lb-podium-card rank-2">
+          <div class="lb-rank-num">🥈 #2</div>
+          <div class="lb-podium-name" id="p2-name">[Partner Name]</div>
+          <div class="lb-podium-niche" id="p2-niche">Niche</div>
+          <div class="lb-podium-signups" id="p2-signups">--</div>
+          <div class="lb-podium-signups-label">sign-ups</div>
+          <div class="lb-podium-prize" id="p2-prize">Dream Trip for 2</div>
+        </div>
+        <div class="lb-podium-card rank-3">
+          <div class="lb-rank-num">🥉 #3</div>
+          <div class="lb-podium-name" id="p3-name">[Partner Name]</div>
+          <div class="lb-podium-niche" id="p3-niche">Niche</div>
+          <div class="lb-podium-signups" id="p3-signups">--</div>
+          <div class="lb-podium-signups-label">sign-ups</div>
+          <div class="lb-podium-prize" id="p3-prize">The Sanctuary</div>
+        </div>
+      </div>
+
+      <!-- Ranks 4–20 -->
+      <div class="lb-rest-table" id="lb-rest-table">
+        <div class="lb-row"><div class="lb-row-rank">#4</div><div><div class="lb-row-name" id="r4-name">[Partner Name]</div><div class="lb-row-niche" id="r4-niche">Niche</div></div><div class="lb-row-signups" id="r4-su">-- sign-ups</div><div class="lb-row-prize">The Café</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#5</div><div><div class="lb-row-name" id="r5-name">[Partner Name]</div><div class="lb-row-niche" id="r5-niche">Niche</div></div><div class="lb-row-signups" id="r5-su">-- sign-ups</div><div class="lb-row-prize">Cold Plunge</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#6</div><div><div class="lb-row-name" id="r6-name">[Partner Name]</div><div class="lb-row-niche" id="r6-niche">Niche</div></div><div class="lb-row-signups" id="r6-su">-- sign-ups</div><div class="lb-row-prize">MacBook Pro</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#7</div><div><div class="lb-row-name" id="r7-name">[Partner Name]</div><div class="lb-row-niche" id="r7-niche">Niche</div></div><div class="lb-row-signups" id="r7-su">-- sign-ups</div><div class="lb-row-prize">MacBook Pro</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#8</div><div><div class="lb-row-name" id="r8-name">[Partner Name]</div><div class="lb-row-niche" id="r8-niche">Niche</div></div><div class="lb-row-signups" id="r8-su">-- sign-ups</div><div class="lb-row-prize">MacBook Pro</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#9</div><div><div class="lb-row-name" id="r9-name">[Partner Name]</div><div class="lb-row-niche" id="r9-niche">Niche</div></div><div class="lb-row-signups" id="r9-su">-- sign-ups</div><div class="lb-row-prize">MacBook Pro</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#10</div><div><div class="lb-row-name" id="r10-name">[Partner Name]</div><div class="lb-row-niche" id="r10-niche">Niche</div></div><div class="lb-row-signups" id="r10-su">-- sign-ups</div><div class="lb-row-prize">MacBook Pro</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#11</div><div><div class="lb-row-name" id="r11-name">[Partner Name]</div><div class="lb-row-niche" id="r11-niche">Niche</div></div><div class="lb-row-signups" id="r11-su">-- sign-ups</div><div class="lb-row-prize">MacBook Air</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#12</div><div><div class="lb-row-name" id="r12-name">[Partner Name]</div><div class="lb-row-niche" id="r12-niche">Niche</div></div><div class="lb-row-signups" id="r12-su">-- sign-ups</div><div class="lb-row-prize">MacBook Air</div></div>
+        <div class="lb-row"><div class="lb-row-rank">#13</div><div><div class="lb-row-name" id="r13-name">[Partner Name]</div><div class="lb-row-niche" id="r13-niche">Niche</div></div><div class="lb-row-signups" id="r13-su">-- sign-ups</div><div class="lb-row-prize">MacBook Air</div></div>
+      </div>
+
+      <div class="lb-placeholder-note" id="lb-placeholder">
+        <strong>Leaderboard opens May 18.</strong> Once the promo window opens, standings populate here every Friday. Check back after launch to see where you stand.
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MESSAGING & POSITIONING ══ -->
+  <div class="section" id="messaging">
+    <div class="section-header">
+      <div class="section-header-left">
+        <h2>Messaging &amp; Positioning Guide</h2>
+        <p>Read this before you write anything. It's the strategic frame for the whole promo.</p>
+      </div>
+      <span class="section-num">Guide</span>
+    </div>
+    <div class="section-body">
+      <div class="msg-body">
+        <div class="msg-meta-pills">
+          <div class="msg-meta-item"><span>For</span><strong>Kajabi Partner Program</strong></div>
+          <div class="msg-meta-item"><span>Discount</span><strong>50% off — new &amp; churned customers</strong></div>
+          <div class="msg-meta-item"><span>Promo Window</span><strong>May 18 – June 2 (extended close June 5)</strong></div>
+          <div class="msg-meta-item"><span>Products Launching</span><strong>Backstage · Amplify · Cofounder Upgrade</strong></div>
+        </div>
+        <div class="msg-big-idea">
+          <div class="msg-big-idea-label">The Big Picture</div>
+          <div class="msg-big-idea-line">This isn't a regular promo month.</div>
+          <p>50% off Kajabi is already one of the most compelling offers we run. This time, we're layering in three new product launches at the same time. For your audience, this is the best moment to start on Kajabi in a long time. For you, it's one of the biggest earning windows of the year.</p>
+          <p style="margin-top:10px;">Your job is simple: help your audience understand what's possible on Kajabi right now, and make the case for why this month is the right time to start.</p>
+        </div>
+        <div class="msg-subsection">
+          <div class="msg-subsection-title">The Campaign Frame</div>
+          <p>Campaign line: <strong style="color:var(--black);">"If you don't know X, you don't know Kajabi."</strong></p>
+          <p>Kajabi has expanded in ways most people don't realize yet. Backstage. Amplify. A smarter Cofounder. These aren't small updates. They change what's possible for experts building businesses on the platform. Use this frame to create a sense of discovery.</p>
+          <div class="msg-frame-examples">
+            <div class="msg-frame-ex">"If you don't know Backstage, you don't know what Kajabi can do for coaches."</div>
+            <div class="msg-frame-ex">"If you don't know Amplify, you don't know how Kajabi helps you grow without paid ads."</div>
+            <div class="msg-frame-ex">"If you don't know the new Cofounder, you don't know how much of your business it can run."</div>
+          </div>
+        </div>
+        <div class="msg-subsection">
+          <div class="msg-subsection-title">Audience Framing by Type</div>
+          <div class="msg-audience-grid">
+            <div class="msg-audience-card">
+              <div class="msg-audience-type">Coaches &amp; consultants</div>
+              <p><strong>Lead with Backstage.</strong> Then the 50% off and Cofounder. Kajabi now handles your full business — digital products, high-ticket delivery, and day-to-day operations.</p>
+            </div>
+            <div class="msg-audience-card">
+              <div class="msg-audience-type">Course creators</div>
+              <p><strong>Lead with 50% off and the platform story.</strong> Layer in Amplify for growth and Cofounder for efficiency.</p>
+            </div>
+            <div class="msg-audience-card">
+              <div class="msg-audience-type">Service providers</div>
+              <p><strong>Lead with Backstage.</strong> Stop delivering client work out of a patchwork of tools. Kajabi has a real system for it now.</p>
+            </div>
+            <div class="msg-audience-card">
+              <div class="msg-audience-type">Beginners / considering starting</div>
+              <p><strong>Lead with the offer.</strong> Keep product details light. Focus on what's possible rather than feature names.</p>
+            </div>
+          </div>
+        </div>
+        <div class="msg-subsection">
+          <div class="msg-subsection-title">Tone &amp; Voice</div>
+          <div class="msg-tone-grid">
+            <div class="msg-tone-card"><div class="msg-tone-word">Direct.</div><p>Say what you mean. Skip the setup.</p></div>
+            <div class="msg-tone-card"><div class="msg-tone-word">Confident.</div><p>You've used Kajabi. You believe in it. Let that come through.</p></div>
+            <div class="msg-tone-card"><div class="msg-tone-word">Human.</div><p>Sound like yourself, not a marketing deck.</p></div>
+            <div class="msg-tone-card"><div class="msg-tone-word">Outcome-first.</div><p>What can your audience build? Start there.</p></div>
+          </div>
+          <div style="margin-top:16px;">
+            <div class="msg-product-col-label" style="margin-bottom:8px;">Words &amp; phrases to avoid</div>
+            <div class="msg-avoid-pills">
+              <span class="msg-avoid-pill">Game-changing</span>
+              <span class="msg-avoid-pill">Revolutionary</span>
+              <span class="msg-avoid-pill">All-in-one solution</span>
+              <span class="msg-avoid-pill">Vague income promises</span>
+              <span class="msg-avoid-pill">Hype language</span>
+            </div>
+          </div>
+        </div>
+        <div class="msg-subsection" style="margin-bottom:0;">
+          <div class="msg-subsection-title">What This Promo Is Not</div>
+          <div class="msg-not-this">Don't frame this as a deal-hunting moment. The audience shouldn't feel like they're getting Kajabi at a discount because Kajabi needs customers. They're getting a rare moment to start on a serious platform at a lower entry cost.<br><br><strong>This is the right platform for experts. May is the right time to start because the pricing makes it easy. That's the message.</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FTC ══ -->
+  <div class="ftc-section" id="ftc">
+    <div class="ftc-header">
+      <h2>FTC Disclosure Requirements</h2>
+      <p>Required reading before publishing any promotional content.</p>
+    </div>
+    <div class="ftc-body">
+      <p>As a Kajabi partner, you earn a commission when someone signs up through your affiliate link. The FTC requires you to clearly disclose this relationship whenever you promote Kajabi — in emails, on social media, in videos, in blog posts, anywhere. This isn't optional.</p>
+      <div class="ftc-rules">
+        <div class="ftc-rule"><strong>Clear &amp; Conspicuous</strong><span>Easy to see and understand. Buried disclaimers in small text at the bottom don't qualify.</span></div>
+        <div class="ftc-rule"><strong>Close to the Claim</strong><span>Put it near your recommendation — not disconnected at the bottom of the page.</span></div>
+        <div class="ftc-rule"><strong>Plain Language</strong><span>"This is an affiliate link" is better than "see disclosure."</span></div>
+      </div>
+      <p style="font-size:13px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;color:var(--gray-300);margin-bottom:12px;">Ready-to-use disclosure copy</p>
+      <div class="disclosure-grid">
+        <div class="disclosure-card">
+          <div class="disclosure-card-head"><span>✉️</span><strong>Email</strong></div>
+          <div class="disclosure-card-body">
+            <p class="hint">Place near the top or directly adjacent to your affiliate link.</p>
+            <div class="disclosure-option">Heads up: I'm a Kajabi affiliate. If you sign up through my link, I may earn a commission at no extra cost to you.</div>
+            <div class="disclosure-option">Quick note: I partner with Kajabi and earn a commission if you sign up through my link.</div>
+          </div>
+        </div>
+        <div class="disclosure-card">
+          <div class="disclosure-card-head"><span>📸</span><strong>Instagram &amp; Facebook</strong></div>
+          <div class="disclosure-card-body">
+            <p class="hint">Must appear before "see more" truncation.</p>
+            <div class="disclosure-option">#Ad | #Affiliate | #KajabiPartner</div>
+            <div class="disclosure-option">Paid partnership with Kajabi. I earn a commission when you sign up through my link.</div>
+          </div>
+        </div>
+        <div class="disclosure-card">
+          <div class="disclosure-card-head"><span>𝕏</span><strong>X (Twitter)</strong></div>
+          <div class="disclosure-card-body">
+            <p class="hint">Include in the post itself.</p>
+            <div class="disclosure-option">#ad or #affiliate</div>
+            <div class="disclosure-option">Affiliate link below. I earn a commission if you sign up.</div>
+          </div>
+        </div>
+        <div class="disclosure-card">
+          <div class="disclosure-card-head"><span>▶️</span><strong>YouTube</strong></div>
+          <div class="disclosure-card-body">
+            <p class="hint">Disclose verbally in first 30 seconds AND in description.</p>
+            <div class="disclosure-option">This video contains affiliate links. If you purchase through my link, I may earn a commission at no extra cost to you.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ftc-legal">⚠️ <strong>Important:</strong> This is general guidance based on FTC requirements as of 2026. It is not legal advice. For specific compliance questions, consult a legal professional or review the FTC's endorsement guides at <strong>ftc.gov</strong>.</div>
+    </div>
+  </div>
+
+  <!-- ══ 50% OFF COPY ══ -->
+  <div class="section" id="promo">
+    <div class="section-header">
+      <div class="section-header-left">
+        <h2>50% Off Kajabi — Swipe Copy</h2>
+        <p>General promo announcement copy. Use for the offer itself, not product-specific angles.</p>
+      </div>
+      <span class="section-num">01</span>
+    </div>
+    <div class="section-body">
+      <div class="inner-label">Email Copy</div>
+      <div class="email-stack">
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email A</span><span class="tag dark">Launch</span><span class="tag">Use May 18</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">This is worth knowing about.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">50% off Kajabi. New customers only. Available now.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+This is worth passing along.
+
+Kajabi is running a rare offer right now. 50% off all monthly and annual plans for new customers, live through June 2nd.
+
+If you've ever had someone in your audience who was close to starting but held off, this is the moment to reach them. Half off to get onto a platform that has everything they need: courses, memberships, communities, coaching tools, email, AI. No piecing it together from a dozen different apps.
+
+And this isn't just a pricing window. They're also launching three new products this month that change what's possible on the platform.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+
+Here's what else is new on Kajabi this month.
+
+<strong>Backstage.</strong> Built for coaches and consultants who want to deliver high-ticket client services inside Kajabi. 1:1 coaching, group consulting, structured client delivery — all in one place.
+
+<strong>Amplify.</strong> An email-based ad network inside Kajabi. Creators promote each other's offers to their own lists. Real distribution, no paid ads required.
+
+<strong>Cofounder (upgraded).</strong> Kajabi's AI business partner just got more proactive. Instead of waiting for you to ask, it manages tasks and runs parts of your business automatically.
+
+If you don't know these products, you don't know Kajabi right now.
+
+50% off to start. June 2nd deadline.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email B</span><span class="tag">Mid-Promo</span><span class="tag">Use May 22–26</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">A question worth asking your audience.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">Is there someone on the fence? Now's the time.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+Quick one.
+
+If there's someone in your world who's been thinking about starting on Kajabi, the 50% off offer is still live through June 2nd.
+
+Half price to start on a full platform. Courses, communities, email marketing, AI tools, coaching delivery. Everything in one place. No separate subscriptions, no duct-taped tech stack.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+
+I've <span class="ph">[used Kajabi for X / seen what it can do for people like you]</span> and this is genuinely the best time to start I've seen in a while.
+
+Don't let them miss this.
+
+<span class="ph">[Your name]</span></div>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email C</span><span class="tag dark">Last Day</span><span class="tag">Use June 2</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">Today is the last day.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">50% off Kajabi closes tonight at 11:59 PM PST.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+Today is the last day to get 50% off Kajabi.
+
+The offer closes tonight at 11:59 PM PST. After tonight, it's the regular price.
+
+If you've been sharing this with your audience, today is the push. If you haven't shared it yet, today is your chance.
+
+50% off all monthly and annual plans for new customers. Starts immediately. Works on the full platform.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+
+This is it.
+
+<span class="ph">[Your name]</span></div>
+        </div>
+      </div>
+      <hr class="sub-divider">
+      <div class="inner-label" style="padding-top:18px;">Social Copy</div>
+      <div class="social-section" style="padding-top:12px;">
+        <div class="social-grid">
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">IG</div><span class="social-option-label">Option A — Direct</span></div>
+            <div class="social-card-body">Kajabi is 50% off right now.
+
+Monthly and annual plans, new customers, through June 2nd.
+
+If you've been thinking about building a course, a membership, a coaching program, or a digital business of any kind... this is the moment to start.
+
+Everything you need is on one platform. At half the price.
+
+<span class="link-ph">[Link in bio / YOUR AFFILIATE LINK]</span></div>
+          </div>
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">IG</div><span class="social-option-label">Option B — New Products Angle</span></div>
+            <div class="social-card-body">Most people know Kajabi for courses and memberships.
+
+But if you don't know what they just launched this month, you don't know Kajabi.
+
+Backstage. Amplify. A smarter Cofounder.
+
+All available now. And new customers can start at 50% off through June 2nd.
+
+<span class="link-ph">[Link in bio / YOUR AFFILIATE LINK]</span></div>
+          </div>
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">𝕏</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">Kajabi is 50% off right now for new customers.
+
+Through June 2nd.
+
+If someone in your world has been waiting for a reason to start, this is it.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span></div>
+          </div>
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">𝕏</div><span class="social-option-label">Option B — Urgency</span></div>
+            <div class="social-card-body">Last call.
+
+50% off Kajabi closes tonight.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span></div>
+          </div>
+        </div>
+        <div class="full-card">
+          <div class="social-card-head"><div class="platform-badge">in</div><span class="social-option-label">LinkedIn</span></div>
+          <div class="social-card-body" style="padding:16px 18px;">Something I want to pass along to anyone building a knowledge business.
+
+Kajabi is running 50% off all plans right now for new customers. It closes June 2nd.
+
+I've seen what this platform can do for coaches, course creators, and consultants. When everything lives in one place — courses, memberships, communities, email, coaching delivery, AI — the business gets simpler. You spend less time managing tools and more time doing the work you're actually good at.
+
+This is genuinely the best time I've seen to start on Kajabi. Half price, full platform, and three new products launching this month that change what's possible.
+
+If you've been thinking about it, don't wait.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BACKSTAGE ══ -->
+  <div class="section" id="backstage">
+    <div class="section-header">
+      <div class="section-header-left">
+        <h2>Backstage</h2>
+        <p>For coaches, consultants, and service providers who offer high-ticket client work.</p>
+      </div>
+      <span class="section-num">02</span>
+    </div>
+    <div class="section-body">
+      <div class="inner-label">Email Copy</div>
+      <div class="email-stack">
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email A</span><span class="tag dark">Introduction</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">This is for the coaches in your audience.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">Kajabi just built something for high-ticket delivery.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+If you have coaches or consultants in your audience, this one's worth sharing.
+
+Kajabi just launched Backstage.
+
+Here's the problem it solves. Most coaches use Kajabi for their digital products: courses, memberships, maybe a community. But when a client buys their high-ticket coaching package, the whole delivery process moves somewhere else. A different tool for messaging. A different place for session notes. A scattered experience for the client.
+
+Backstage brings it together. 1:1 coaching, group consulting, structured client delivery — inside Kajabi, alongside everything else.
+
+One system. One client experience. No more juggling.
+
+New customers can start on Kajabi at 50% off through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email B</span><span class="tag">Problem-led</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">If your coaching delivery lives outside Kajabi...</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">There's a reason for that. And now there's a fix.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+If you deliver coaching outside of Kajabi, this is for you.
+
+Most coaches run two separate worlds. Their courses and memberships live in Kajabi. Their actual coaching delivery lives somewhere else. A different inbox, a different app, a different client portal.
+
+Kajabi just launched Backstage. A new add-on for structured, high-ticket service delivery inside Kajabi. Messaging, session tools, learning pathways, and client delivery — all in the same place as your digital products.
+
+Your clients get one cohesive experience. You get one less system to manage.
+
+New customers can start on Kajabi at 50% off through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+      </div>
+      <hr class="sub-divider">
+      <div class="inner-label" style="padding-top:18px;">Social Copy</div>
+      <div class="social-section" style="padding-top:12px;">
+        <div class="social-grid">
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">IG</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">Quick one for the coaches.
+
+Kajabi just launched Backstage.
+
+If you run courses on Kajabi and also do 1:1 or group coaching, this is what you've been waiting for. Your high-ticket delivery can now live in the same place as the rest of your business.
+
+New customers can start at 50% off Kajabi through June 2nd.
+
+<span class="link-ph">[Link in bio / YOUR AFFILIATE LINK]</span></div>
+          </div>
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">𝕏</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">Kajabi just launched Backstage.
+
+For coaches who've been running their high-ticket delivery outside Kajabi because there wasn't a real solution inside it.
+
+Now there is. 50% off to start, through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ AMPLIFY ══ -->
+  <div class="section" id="amplify">
+    <div class="section-header">
+      <div class="section-header-left">
+        <h2>Amplify</h2>
+        <p>For creators who want to grow their audience without paid ads.</p>
+      </div>
+      <span class="section-num">03</span>
+    </div>
+    <div class="section-body">
+      <div class="inner-label">Email Copy</div>
+      <div class="email-stack">
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email A</span><span class="tag dark">Introduction</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">Grow without ad spend. Kajabi built something for that.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">It's called Amplify. Here's how it works.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+If anyone in your audience is trying to grow without pouring money into paid ads, this one's worth sharing.
+
+Kajabi just launched Amplify.
+
+An email-based ad network built directly into Kajabi. Creators promote each other's offers to their own email lists. You reach new audiences. They reach yours. Real distribution, built into the platform.
+
+No ad manager. No campaign spend. No targeting headaches.
+
+New customers can get onto Kajabi at 50% off through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email B</span><span class="tag">Pain-led</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">The paid ads problem.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">There's another way to grow. It's built into Kajabi.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+Here's a conversation I hear a lot.
+
+"I know I need to grow my list, but paid ads are expensive and I don't really know what I'm doing."
+
+Kajabi's answer to that is Amplify.
+
+A built-in network where Kajabi creators promote each other's offers through email. Real audiences. Real creators. Built-in distribution. No ad spend. No ad manager. No guessing.
+
+Available now on Kajabi. New customers start at 50% off through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+      </div>
+      <hr class="sub-divider">
+      <div class="inner-label" style="padding-top:18px;">Social Copy</div>
+      <div class="social-section" style="padding-top:12px;">
+        <div class="social-grid">
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">IG</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">Kajabi launched something interesting.
+
+Amplify — an email-based ad network built into the platform. Creators promote each other's offers to their own lists. You get reach into new audiences without running a paid campaign.
+
+50% off to start on Kajabi, through June 2nd.
+
+<span class="link-ph">[Link in bio / YOUR AFFILIATE LINK]</span></div>
+          </div>
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">𝕏</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">Kajabi just launched a built-in email ad network.
+
+Called Amplify. Creators promote each other's offers to their lists. Real reach, no ad spend.
+
+50% off to get on Kajabi. June 2nd deadline.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ COFOUNDER ══ -->
+  <div class="section" id="cofounder">
+    <div class="section-header">
+      <div class="section-header-left">
+        <h2>Cofounder Upgrade</h2>
+        <p>For anyone who wants their Kajabi business to run more on autopilot.</p>
+      </div>
+      <span class="section-num">04</span>
+    </div>
+    <div class="section-body">
+      <div class="inner-label">Email Copy</div>
+      <div class="email-stack">
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email A</span><span class="tag dark">Introduction</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">Your Kajabi AI just got better at running your business.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">The Cofounder upgrade is live. Here's what changed.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+Every Kajabi account comes with Cofounder — Kajabi's AI business partner.
+
+Up until now, Cofounder answered your questions. You'd ask, it would tell you what to do. Useful. But still reactive.
+
+The new update changes that. Cofounder is now proactive. It starts managing tasks, taking action, and running parts of your Kajabi business without waiting for you to ask.
+
+If your audience is on Kajabi, they already have this. If they're thinking about joining, this is one more reason why May is the right time.
+
+New customers: 50% off Kajabi through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+        <div class="email-card">
+          <div class="email-card-meta"><span class="email-label">Email B</span><span class="tag">Identity angle</span></div>
+          <div class="email-subject"><span class="field-label">Subject</span><span class="field-value">You became an expert so you could help people. Not manage software.</span></div>
+          <div class="email-preview"><span class="field-label">Preview</span><span class="field-value">That's what Cofounder is for.</span></div>
+          <div class="email-body">Hey <span class="ph">[First Name]</span>,
+The reason most experts struggle to scale isn't their expertise. It's everything else.
+
+The platform management. The email sequences. The launch prep. The day-to-day business overhead that has nothing to do with what they actually know how to do.
+
+Kajabi built Cofounder to handle more of that. It's the AI business partner built into every Kajabi account. The latest update makes it more proactive — it starts managing tasks, taking action, and running parts of the business automatically.
+
+Less time managing your tools. More time doing the work.
+
+New customers can start at 50% off through June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span>
+<span class="ph">[Your name]</span></div>
+        </div>
+      </div>
+      <hr class="sub-divider">
+      <div class="inner-label" style="padding-top:18px;">Social Copy</div>
+      <div class="social-section" style="padding-top:12px;">
+        <div class="social-grid">
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">IG</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">The Kajabi Cofounder update is live.
+
+Every Kajabi account comes with an AI business partner built in. Until now, it answered questions. The new version manages tasks, takes action, and runs parts of your business without you having to ask.
+
+New customers: 50% off Kajabi through June 2nd.
+
+<span class="link-ph">[Link in bio / YOUR AFFILIATE LINK]</span></div>
+          </div>
+          <div class="social-card">
+            <div class="social-card-head"><div class="platform-badge">𝕏</div><span class="social-option-label">Option A</span></div>
+            <div class="social-card-body">Most AI answers questions.
+Kajabi's Cofounder manages your business.
+
+New update: even more proactive. Runs tasks, takes action, handles the overhead so you can focus on the expertise.
+
+50% off Kajabi to start. June 2nd.
+
+<span class="link-ph">[YOUR AFFILIATE LINK]</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ QUICK REFERENCE ══ -->
+  <div class="table-section" id="quickref">
+    <div class="table-header">
+      <h2>Quick Reference — Subject Lines by Goal</h2>
+      <p>Match the email to where your audience is in the promo window.</p>
+    </div>
+    <table>
+      <thead><tr><th>Section</th><th>Angle</th><th>Subject Line</th><th>Best Timing</th></tr></thead>
+      <tbody>
+        <tr><td class="td-section">50% Off</td><td class="td-angle">Launch announcement</td><td class="td-subject">This is worth knowing about.</td><td class="td-timing">May 18</td></tr>
+        <tr><td class="td-section">50% Off</td><td class="td-angle">Mid-promo nudge</td><td class="td-subject">A question worth asking your audience.</td><td class="td-timing">May 22–26</td></tr>
+        <tr><td class="td-section">50% Off</td><td class="td-angle">Last day push</td><td class="td-subject">Today is the last day.</td><td class="td-timing">June 2</td></tr>
+        <tr><td class="td-section">Backstage</td><td class="td-angle">Coach audience intro</td><td class="td-subject">This is for the coaches in your audience.</td><td class="td-timing">May 18+</td></tr>
+        <tr><td class="td-section">Backstage</td><td class="td-angle">Pain-led</td><td class="td-subject">If your coaching delivery lives outside Kajabi...</td><td class="td-timing">May 18+</td></tr>
+        <tr><td class="td-section">Amplify</td><td class="td-angle">Introduction</td><td class="td-subject">Grow without ad spend. Kajabi built something for that.</td><td class="td-timing">May 18+</td></tr>
+        <tr><td class="td-section">Amplify</td><td class="td-angle">Pain-led</td><td class="td-subject">The paid ads problem.</td><td class="td-timing">May 18+</td></tr>
+        <tr><td class="td-section">Cofounder</td><td class="td-angle">Feature intro</td><td class="td-subject">Your Kajabi AI just got better at running your business.</td><td class="td-timing">May 18+</td></tr>
+        <tr><td class="td-section">Cofounder</td><td class="td-angle">Identity angle</td><td class="td-subject">You became an expert so you could help people. Not manage software.</td><td class="td-timing">May 18+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ══ PERSONALIZATION ══ -->
+  <div class="personal-section">
+    <h2>A Note on Personalization</h2>
+    <p>The copy above is a starting point. The best-performing partner content does one thing swipe copy can't do: it sounds like the person sending it.</p>
+    <div class="tip-row">
+      <div class="tip-card"><div class="tip-num">1</div>A line about why you personally use or recommend Kajabi.</div>
+      <div class="tip-card"><div class="tip-num">2</div>A specific result you've seen from the platform.</div>
+      <div class="tip-card"><div class="tip-num">3</div>The type of person in your audience this is most relevant for.</div>
+    </div>
+  </div>
+
+  <div class="doc-footer">Questions? Courtney &amp; Janessa are in your inbox. · partners@kajabi.com</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// LIVE LEADERBOARD — GOOGLE SHEETS CONFIG
+// ═══════════════════════════════════════════════════════════════
+// To connect live standings:
+//   1. Create a Google Sheet with columns: rank, name, niche, signups
+//   2. File → Share → Publish to web → CSV → Copy URL
+//   3. Paste the URL in LEADERBOARD_SHEET_URL below
+//   4. Re-upload this file to Vercel
+//
+// Leave empty ('') to show placeholder data until promo opens.
+const LEADERBOARD_SHEET_URL = '';
+
+// Prize lookup by rank
+const PRIZE_BY_RANK = {
+  1: 'Tesla Model Y', 2: 'Dream Trip for 2', 3: 'The Sanctuary Sauna',
+  4: 'The Café Setup', 5: 'The Cold Plunge',
+  6: 'MacBook Pro', 7: 'MacBook Pro', 8: 'MacBook Pro', 9: 'MacBook Pro', 10: 'MacBook Pro',
+  11: 'MacBook Air', 12: 'MacBook Air', 13: 'MacBook Air', 14: 'MacBook Air', 15: 'MacBook Air',
+  16: 'iPad Pro', 17: 'iPad Pro', 18: 'iPad Pro', 19: 'iPad Pro', 20: 'iPad Pro'
+};
+
+// Parse a CSV string into array of objects (first row = headers)
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+  return lines.slice(1).map(line => {
+    const vals = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = vals[i] || '');
+    return obj;
+  });
+}
+
+// Set text of an element by id safely
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+// Render loaded leaderboard data
+function renderStandings(rows) {
+  if (!rows || rows.length === 0) return;
+
+  // Show live note, hide placeholder
+  const note = document.getElementById('lb-live-note');
+  const placeholder = document.getElementById('lb-placeholder');
+  if (note) note.style.display = 'block';
+  if (placeholder) placeholder.style.display = 'none';
+
+  rows.forEach(row => {
+    const r = parseInt(row.rank);
+    const su = row.signups ? row.signups + ' sign-ups' : '-- sign-ups';
+    const prize = PRIZE_BY_RANK[r] || '';
+
+    if (r === 1) { setText('p1-name', row.name || '--'); setText('p1-niche', row.niche || ''); setText('p1-signups', row.signups || '--'); if (prize) setText('p1-prize', prize); }
+    else if (r === 2) { setText('p2-name', row.name || '--'); setText('p2-niche', row.niche || ''); setText('p2-signups', row.signups || '--'); if (prize) setText('p2-prize', prize); }
+    else if (r === 3) { setText('p3-name', row.name || '--'); setText('p3-niche', row.niche || ''); setText('p3-signups', row.signups || '--'); if (prize) setText('p3-prize', prize); }
+    else if (r >= 4 && r <= 13) {
+      setText(`r${r}-name`, row.name || '--');
+      setText(`r${r}-niche`, row.niche || '');
+      setText(`r${r}-su`, su);
+    }
+  });
+}
+
+// Fetch leaderboard from Google Sheets if URL is set
+async function fetchLeaderboard() {
+  if (!LEADERBOARD_SHEET_URL) return;
+  try {
+    const res = await fetch(LEADERBOARD_SHEET_URL);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    renderStandings(rows);
+  } catch (e) {
+    console.warn('Leaderboard fetch failed:', e);
+  }
+}
+
+// ── COUNTDOWN ──────────────────────────────────────────────────
+// June 2, 2026 at 11:59:59 PM PT = June 3 at 06:59:59 UTC
+var PROMO_END = new Date('2026-06-03T06:59:59Z');
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function tick() {
+  var now = new Date();
+  var diff = PROMO_END - now;
+  var dEl = document.getElementById('cd-days');
+  if (!dEl) return;
+  if (diff <= 0) {
+    dEl.textContent = '0';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    var label = document.querySelector('.lb-countdown-label');
+    if (label) label.textContent = 'Promo closed';
+    var dot = document.querySelector('.lb-live-dot');
+    if (dot) dot.style.background = '#bcb9ae';
+    return;
+  }
+  var totalSec = Math.floor(diff / 1000);
+  dEl.textContent = Math.floor(totalSec / 86400);
+  document.getElementById('cd-hours').textContent = pad(Math.floor((totalSec % 86400) / 3600));
+  document.getElementById('cd-mins').textContent = pad(Math.floor((totalSec % 3600) / 60));
+  document.getElementById('cd-secs').textContent = pad(totalSec % 60);
+}
+
+tick();
+setInterval(tick, 1000);
+fetchLeaderboard();
+</script>
+</body>
+</html>

@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { supabase } from '@/lib/supabase'
-import type { LeaderboardEntry } from '@/lib/types'
+
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDQeaW05ez9OzVproXXg_m2kqfvf2hMYElUy7n1RpJNCXOrx4K4PIHL0BEgd1Ix-fRiNSE2xivu1Uj/pub?gid=1098523292&single=true&output=csv'
 
 const AFFILIATE_OPEN = new Date('2026-05-18T06:00:00-07:00')
 const PROMO_CLOSE    = new Date('2026-06-02T23:59:00-07:00')
@@ -16,15 +16,49 @@ const PRIZE: Record<number, string> = {
 }
 
 const PRIZE_REF = [
-  { rank: '🥇 #1',  name: 'Tesla Model Y',      value: '$55,000', req: '150 min', gold: true },
-  { rank: '🥈 #2',  name: 'Dream Trip for 2',   value: '$25,000', req: '100 min' },
-  { rank: '🥉 #3',  name: 'Sanctuary Sauna',    value: '$20,000', req: '75 min' },
-  { rank: '#4',      name: 'The Café Setup',     value: '$15,000', req: '50 min' },
-  { rank: '#5',      name: 'The Cold Plunge',    value: '$12,000', req: '25 min' },
+  { rank: '🥇 #1',  name: 'Tesla Model Y',      value: '$55,000',  req: '150 min', gold: true },
+  { rank: '🥈 #2',  name: 'Dream Trip for 2',   value: '$25,000',  req: '100 min' },
+  { rank: '🥉 #3',  name: 'Sanctuary Sauna',    value: '$20,000',  req: '75 min' },
+  { rank: '#4',      name: 'The Café Setup',     value: '$15,000',  req: '50 min' },
+  { rank: '#5',      name: 'The Cold Plunge',    value: '$12,000',  req: '25 min' },
   { rank: '#6–10',   name: 'MacBook Pro 16"',    value: '$3,999 ea', req: '10 min' },
   { rank: '#11–15',  name: 'MacBook Air 15"',    value: '$1,299 ea', req: '8 min' },
   { rank: '#16–20',  name: 'iPad Pro 13"',       value: '$1,428 ea', req: '5 min' },
 ]
+
+interface Row { rank: number; partner_name: string; gsas: number }
+
+function parseCsvLine(line: string): string[] {
+  const result: string[] = []
+  let cur = ''
+  let inQuotes = false
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i]
+    if (c === '"') { inQuotes = !inQuotes }
+    else if (c === ',' && !inQuotes) { result.push(cur.trim()); cur = '' }
+    else { cur += c }
+  }
+  result.push(cur.trim())
+  return result
+}
+
+async function fetchSheet(): Promise<Row[]> {
+  const res = await fetch(CSV_URL, { cache: 'no-store' })
+  const text = await res.text()
+  const lines = text.trim().split('\n').slice(1) // skip header row
+
+  const totals = new Map<string, number>()
+  for (const line of lines) {
+    const cols = parseCsvLine(line)
+    const name = cols[0]
+    const n    = parseInt(cols[3] || '0', 10)
+    if (name) totals.set(name, (totals.get(name) ?? 0) + n)
+  }
+
+  return [...totals.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([partner_name, gsas], i) => ({ rank: i + 1, partner_name, gsas }))
+}
 
 function pad(n: number) { return String(n).padStart(2, '0') }
 
@@ -49,33 +83,34 @@ function useCountdown(target: Date) {
 }
 
 export default function Leaderboard() {
-  const [entries, setEntries] = useState<LeaderboardEntry[]>([])
-  const [loading, setLoading]     = useState(true)
+  const [entries, setEntries]         = useState<Row[]>([])
+  const [loading, setLoading]         = useState(true)
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-  const [isLive] = useState(() => new Date() >= AFFILIATE_OPEN)
+  const [error, setError]             = useState(false)
+  const isLive = new Date() >= AFFILIATE_OPEN
   const countdown = useCountdown(PROMO_CLOSE)
 
-  const fetchEntries = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('leaderboard')
-      .select('*')
-      .order('rank', { ascending: true })
-    if (!error && data) { setEntries(data); setLastUpdated(new Date()) }
-    setLoading(false)
+  const refresh = useCallback(async () => {
+    try {
+      const rows = await fetchSheet()
+      setEntries(rows)
+      setLastUpdated(new Date())
+      setError(false)
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => {
-    if (!isLive) { setLoading(false); return }
-    fetchEntries()
-    const ch = supabase
-      .channel('lb')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'leaderboard' }, fetchEntries)
-      .subscribe()
-    return () => { supabase.removeChannel(ch) }
-  }, [isLive, fetchEntries])
+    refresh()
+    const id = setInterval(refresh, 60_000)
+    return () => clearInterval(id)
+  }, [refresh])
 
-  const top3  = entries.slice(0, 3)
-  const rest  = entries.slice(3)
+  const top3 = entries.slice(0, 3)
+  const rest = entries.slice(3)
 
   return (
     <div id="leaderboard" className="section-card">
@@ -84,11 +119,14 @@ export default function Leaderboard() {
       <div className="section-head">
         <div>
           <h2 className="text-[17px] font-extrabold tracking-tight">Live Leaderboard</h2>
-          <p className="text-[12px] text-white/55 mt-1">Standings update in real time. Final lock: June 2 at 11:59 PM PST.</p>
+          <p className="text-[12px] text-white/55 mt-1">Standings update every minute. Final lock: June 2 at 11:59 PM PST.</p>
         </div>
-        <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase text-white/45 shrink-0 pt-0.5">
-          <span className={`w-[7px] h-[7px] rounded-full ${isLive ? 'bg-emerald-400 animate-pulse-dot' : 'bg-white/20'}`} />
-          {isLive ? 'Live' : 'Opens May 18'}
+        <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase shrink-0 pt-0.5">
+          {isLive ? (
+            <><span className="w-[7px] h-[7px] rounded-full bg-emerald-400 animate-pulse-dot" /><span className="text-white/45">Live</span></>
+          ) : (
+            <><span className="w-[7px] h-[7px] rounded-full bg-amber-400/60" /><span className="text-[#D6A151]/70">Preview</span></>
+          )}
         </div>
       </div>
 
@@ -143,19 +181,19 @@ export default function Leaderboard() {
         <div className="px-7 pt-5 pb-7">
           <div className="text-[10px] font-bold tracking-widest uppercase text-white/30 mb-2.5">Current standings</div>
 
-          {!isLive ? (
-            <div className="border border-dashed border-white/[0.12] rounded-[8px] px-4 py-3.5 text-[12.5px] text-white/40 text-center leading-relaxed">
-              <strong className="text-white/70">Leaderboard opens May 18.</strong> Once the promo window opens, standings populate here in real time. Check back after launch.
-            </div>
-          ) : loading ? (
+          {loading ? (
             <div className="space-y-2">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="h-14 rounded-[8px] bg-white/[0.04] animate-pulse" />
               ))}
             </div>
+          ) : error ? (
+            <div className="border border-dashed border-white/[0.12] rounded-[8px] px-4 py-3.5 text-[12.5px] text-white/40 text-center">
+              Unable to load standings. Will retry automatically.
+            </div>
           ) : entries.length === 0 ? (
             <div className="border border-dashed border-white/[0.12] rounded-[8px] px-4 py-3.5 text-[12.5px] text-white/40 text-center">
-              No entries yet. Partners need a minimum of 25 sign-ups to appear on the public leaderboard.
+              No entries yet.
             </div>
           ) : (
             <>
@@ -163,9 +201,9 @@ export default function Leaderboard() {
               {top3.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
                   {top3.map((e) => (
-                    <div key={e.id} className={`border rounded-[8px] p-3.5 text-center animate-fade-in ${
+                    <div key={e.partner_name} className={`border rounded-[8px] p-3.5 text-center ${
                       e.rank === 1 ? 'border-[#D6A151]/50 bg-[rgba(214,161,81,0.06)]' :
-                      e.rank === 2 ? 'border-white/15 bg-white/[0.04]' :
+                      e.rank === 2 ? 'border-white/[0.15] bg-white/[0.04]' :
                       'border-white/[0.08] bg-white/[0.025]'
                     }`}>
                       <div className={`text-[11px] font-extrabold tracking-wide mb-1.5 ${
@@ -177,7 +215,7 @@ export default function Leaderboard() {
                       <div className="text-[20px] font-black text-white leading-none tabular-nums">{e.gsas}</div>
                       <div className="text-[10px] font-semibold text-white/40 uppercase tracking-wide">sign-ups</div>
                       <span className="inline-block mt-2 text-[11.5px] font-bold text-white/80 bg-white/[0.08] border border-white/[0.12] px-2.5 py-0.5 rounded-sm">
-                        {PRIZE[e.rank] ?? e.prize_name ?? '—'}
+                        {PRIZE[e.rank] ?? '—'}
                       </span>
                     </div>
                   ))}
@@ -188,14 +226,12 @@ export default function Leaderboard() {
               {rest.length > 0 && (
                 <div className="border border-white/[0.08] rounded-[8px] overflow-hidden">
                   {rest.map((e) => (
-                    <div key={e.id} className="grid grid-cols-[36px_1fr_auto_auto] items-center px-4 py-2.5 border-b border-white/[0.06] last:border-b-0 gap-3 text-[13px] hover:bg-white/[0.03] transition-colors animate-fade-in">
+                    <div key={e.partner_name} className="grid grid-cols-[36px_1fr_auto_auto] items-center px-4 py-2.5 border-b border-white/[0.06] last:border-b-0 gap-3 text-[13px] hover:bg-white/[0.03] transition-colors">
                       <span className="text-[12px] font-bold text-white/30 text-center">#{e.rank}</span>
-                      <div>
-                        <div className="font-semibold text-white tracking-tight">{e.partner_name}</div>
-                      </div>
+                      <div className="font-semibold text-white tracking-tight">{e.partner_name}</div>
                       <span className="text-[12px] font-semibold text-white/45 whitespace-nowrap">{e.gsas} sign-ups</span>
                       <span className="text-[11px] font-bold text-white/40 bg-white/[0.05] border border-white/[0.08] rounded-sm px-1.5 py-0.5 whitespace-nowrap">
-                        {PRIZE[e.rank] ?? e.prize_name ?? '—'}
+                        {PRIZE[e.rank] ?? '—'}
                       </span>
                     </div>
                   ))}
@@ -204,7 +240,7 @@ export default function Leaderboard() {
 
               {lastUpdated && (
                 <p className="text-center text-[11.5px] text-white/25 pt-4">
-                  Updated {lastUpdated.toLocaleTimeString()} · Changes reflect in real time
+                  Updated {lastUpdated.toLocaleTimeString()} · Refreshes every 60 seconds
                 </p>
               )}
             </>

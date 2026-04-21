@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 
 const AFFILIATE_OPEN = new Date('2026-05-18T06:00:00-07:00')
-const FINAL_CLOSE    = new Date('2026-06-05T23:59:00-07:00')
+const FINAL_CLOSE    = new Date('2026-06-02T23:59:00-07:00')
 
 function StatusPill() {
   const [label, setLabel] = useState('')
@@ -64,7 +64,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 border-t border-white/[0.08]">
-          <Cell label="Promo Window" value="May 18 – June 2" sub="Extended close June 5" />
+          <Cell label="Promo Window" value="May 18 – June 2" />
           <Cell label="New Products Launching" value="" chips />
           <Cell label="Total Prize Pool" value="$250,000" sub="Partners only. Stacks with commission." amber />
         </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-const FINAL_CLOSE = new Date('2026-06-05T23:59:00-07:00')
+const FINAL_CLOSE = new Date('2026-06-02T23:59:00-07:00')
 
 function pad(n: number) { return String(n).padStart(2, '0') }
 

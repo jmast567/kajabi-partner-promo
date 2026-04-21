@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import PartnerChat from '@/components/PartnerChat'
+import PartnerChatLoader from '@/components/PartnerChatLoader'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.variable}>
       <body>
         {children}
-        <PartnerChat />
+        <PartnerChatLoader />
       </body>
     </html>
   )

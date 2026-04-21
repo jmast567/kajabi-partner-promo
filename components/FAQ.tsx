@@ -8,7 +8,7 @@ const FAQS = [
     items: [
       {
         q: 'Who is eligible for the 50% discount?',
-        a: 'New customers and churned customers only. The promo runs May 18 – June 2, 2026 (extended close June 5). 30-day trial and 3-for-$99 options remain available and are not replaced by the campaign.',
+        a: 'New customers and churned customers only. The promo runs May 18 – June 2, 2026. 30-day trial and 3-for-$99 options remain available and are not replaced by the campaign.',
       },
       {
         q: 'How long does the discount last for customers referred through my affiliate link?',
@@ -17,10 +17,6 @@ const FAQS = [
       {
         q: 'When does my affiliate link go live?',
         a: 'Your link goes live on May 18 at 6:00 AM PST — 24 hours before the sitewide public launch on May 19. This is your exclusive early access window. The leaderboard Championship competition begins the moment your link goes live.',
-      },
-      {
-        q: 'Does the extension affect my commissions?',
-        a: 'Yes — the cart extends through June 5 at 11:59 PM PST. Any sign-up through your link during that window still earns you commission. The Championship leaderboard locks at June 2, but dedicated bonus prizes cover the June 2–5 extension window.',
       },
     ],
   },
@@ -62,7 +58,7 @@ const FAQS = [
       },
       {
         q: 'When does the leaderboard lock?',
-        a: 'Tier 1 and Tier 2 rankings lock at June 2 at 11:59 PM PST. The June 2–5 extension window has its own dedicated bonus prizes but does not count toward Tier 1–3 leaderboard ranking. Winners are notified within 10 business days of close.',
+        a: 'Tier 1 and Tier 2 rankings lock at June 2 at 11:59 PM PST. Winners are notified within 10 business days of close.',
       },
       {
         q: 'How do Tier 3 milestone prizes work?',

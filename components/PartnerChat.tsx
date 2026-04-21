@@ -104,7 +104,7 @@ export default function PartnerChat() {
       {/* Floating toggle */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#D6A151] hover:bg-[#c49040] shadow-2xl flex items-center justify-center transition-colors"
+        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-[#D6A151] hover:bg-[#c49040] shadow-2xl flex items-center justify-center transition-colors"
         aria-label="Partner chat"
       >
         {open ? (
@@ -125,7 +125,7 @@ export default function PartnerChat() {
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 w-[340px] max-w-[calc(100vw-24px)] flex flex-col rounded-[12px] overflow-hidden shadow-2xl border border-white/[0.12] bg-[#0f0f0f]" style={{ height: '460px' }}>
+        <div className="fixed bottom-24 right-6 z-[9999] w-[340px] max-w-[calc(100vw-24px)] flex flex-col rounded-[12px] overflow-hidden shadow-2xl border border-white/[0.12] bg-[#0f0f0f]" style={{ height: '460px' }}>
 
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-[#161616] border-b border-white/[0.08] shrink-0">

@@ -8,14 +8,22 @@ const PLANS = [
   { name: 'Pro',    promoPrice: 249.50 },
 ]
 
+const RATES = [
+  { label: '10%', value: 0.10 },
+  { label: '15%', value: 0.15 },
+  { label: '20%', value: 0.20 },
+  { label: '30%', value: 0.30 },
+]
+
 function fmt(n: number) { return n.toLocaleString('en-US', { maximumFractionDigits: 0 }) }
 
 export default function CommissionCalc() {
   const [signups, setSignups] = useState(10)
   const [planIdx, setPlanIdx] = useState(0)
+  const [rateIdx, setRateIdx] = useState(3)
 
   const plan    = PLANS[planIdx]
-  const rate    = 0.30
+  const rate    = RATES[rateIdx].value
   const monthly = signups * plan.promoPrice * rate
   const annual  = monthly * 12
 
@@ -56,6 +64,27 @@ export default function CommissionCalc() {
           </div>
         </div>
 
+        {/* Commission rate selector */}
+        <div>
+          <div className="text-[10px] font-bold tracking-widest uppercase text-white/30 mb-2.5">Your commission rate</div>
+          <div className="grid grid-cols-4 gap-2">
+            {RATES.map(({ label }, i) => (
+              <button
+                key={label}
+                onClick={() => setRateIdx(i)}
+                className={`py-2.5 rounded-[8px] text-[13px] font-bold border transition-colors ${
+                  rateIdx === i
+                    ? 'bg-[rgba(214,161,81,0.10)] border-[#D6A151]/60 text-[#D6A151]'
+                    : 'bg-white/[0.04] border-white/[0.08] text-white/45 hover:text-white/75'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <p className="text-[11px] text-white/30 mt-2">Check your partner dashboard for your specific tier rate.</p>
+        </div>
+
         {/* Slider */}
         <div>
           <div className="flex items-center justify-between mb-2">
@@ -80,7 +109,7 @@ export default function CommissionCalc() {
           <div className="border border-[#D6A151]/25 rounded-[8px] p-5 text-center" style={{ background: 'linear-gradient(135deg, rgba(214,161,81,0.10) 0%, rgba(214,161,81,0.03) 100%)' }}>
             <div className="text-[10px] font-bold tracking-widest uppercase text-[#D6A151]/60 mb-2">Monthly earnings</div>
             <div className="text-[36px] font-black text-[#D6A151] tracking-tight leading-none">${fmt(monthly)}</div>
-            <div className="text-[11px] text-white/40 mt-1.5">{signups} × ${plan.promoPrice} × up to 30%</div>
+            <div className="text-[11px] text-white/40 mt-1.5">{signups} × ${plan.promoPrice} × {RATES[rateIdx].label}</div>
           </div>
           <div className="border border-white/[0.12] rounded-[8px] p-5 text-center" style={{ background: 'linear-gradient(135deg, #191919 0%, #111111 100%)' }}>
             <div className="text-[10px] font-bold tracking-widest uppercase text-white/35 mb-2">First-year total</div>
@@ -96,7 +125,7 @@ export default function CommissionCalc() {
 
         {/* Quick reference */}
         <div className="border-t border-white/[0.08] pt-5">
-          <div className="text-[10px] font-bold tracking-widest uppercase text-white/30 mb-3">Quick reference — {plan.name} plan</div>
+          <div className="text-[10px] font-bold tracking-widest uppercase text-white/30 mb-3">Quick reference — {plan.name} plan at {RATES[rateIdx].label}</div>
           <div className="grid grid-cols-3 gap-2">
             {[10, 25, 50].map(n => (
               <button

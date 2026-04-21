@@ -3,23 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: 'Inter', system-ui, sans-serif;
-  --amber: #D6A151;
-  --terra: #AD715C;
+  --font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --green:  #69FF81;
+  --amber:  #D6A151;
+  --terra:  #AD715C;
   --forest: #405B50;
-  --blue: #3A6278;
+  --blue:   #3A6278;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #070707;
-  background-image:
-    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(214,161,81,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 30% at 80% 20%, rgba(173,113,92,0.04) 0%, transparent 60%);
-  background-attachment: fixed;
+  background-color: #0A0A0A;
   color: rgba(255, 255, 255, 0.85);
-  font-family: var(--font-inter);
+  font-family: var(--font-jakarta);
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -27,47 +24,47 @@ body {
 
 /* ── Section card pattern ── */
 .section-card {
-  margin-bottom: 40px;
-  border-radius: 10px;
+  margin-bottom: 32px;
+  border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.07);
-  box-shadow: 0 2px 24px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 1px 20px rgba(0,0,0,0.6);
 }
 
 .section-head {
-  background: linear-gradient(135deg, #1c1a18 0%, #141414 50%, #111111 100%);
+  background: #111111;
   color: rgba(255,255,255,0.9);
-  padding: 22px 28px;
+  padding: 20px 28px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 
 .section-body {
-  background: linear-gradient(180deg, #0f0f0f 0%, #0b0b0b 100%);
+  background: #0A0A0A;
   overflow: hidden;
-  border-radius: 0 0 10px 10px;
+  border-radius: 0 0 8px 8px;
 }
 
 /* ── Surface cards ── */
 .card-dark {
-  background: #141414;
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 8px;
+  background: #111111;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
 }
 
 .card-dark-alt {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 /* ── Email / copy cards ── */
 .email-card {
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
   margin-bottom: 16px;
 }
@@ -92,12 +89,12 @@ body {
 
 /* Inline placeholders */
 .ph {
-  background: rgba(214,161,81,0.15);
+  background: rgba(105,255,129,0.10);
   border-radius: 3px;
   padding: 1px 5px;
   font-size: 12px;
   font-family: "SF Mono", Menlo, monospace;
-  color: var(--amber);
+  color: var(--green);
 }
 
 .link-ph {
@@ -128,11 +125,12 @@ body {
 .text-amber  { color: var(--amber); }
 .text-terra  { color: var(--terra); }
 .text-forest { color: var(--forest); }
+.text-green  { color: var(--green); }
 .text-muted  { color: rgba(255,255,255,0.45); }
 .text-faint  { color: rgba(255,255,255,0.25); }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #070707; }
-::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333; }

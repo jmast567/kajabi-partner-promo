@@ -96,9 +96,9 @@ export default function Leaderboard() {
         </div>
         <div className="flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase shrink-0 pt-0.5">
           {isLive ? (
-            <><span className="w-[7px] h-[7px] rounded-full bg-emerald-400 animate-pulse-dot" /><span className="text-white/45">Live</span></>
+            <><span className="w-[7px] h-[7px] rounded-full bg-[#69FF81] animate-pulse-dot" /><span className="text-[#69FF81]">Live</span></>
           ) : (
-            <><span className="w-[7px] h-[7px] rounded-full bg-amber-400/60" /><span className="text-[#D6A151]/70">Preview</span></>
+            <><span className="w-[7px] h-[7px] rounded-full bg-[#69FF81]/40" /><span className="text-[#69FF81]/60">Preview</span></>
           )}
         </div>
       </div>

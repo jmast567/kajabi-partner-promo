@@ -40,7 +40,7 @@ export default function Nav() {
   const t = useCountdown(FINAL_CLOSE)
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-white/[0.07] overflow-x-auto flex items-center gap-0 px-6" style={{ scrollbarWidth: 'none', background: 'linear-gradient(135deg, #1a1710 0%, #111111 50%, #0d0d0d 100%)', backdropFilter: 'blur(12px)' }}>
+    <nav className="sticky top-0 z-50 border-b border-white/[0.07] overflow-x-auto flex items-center gap-0 px-6" style={{ scrollbarWidth: 'none', background: '#0f0f0f', backdropFilter: 'blur(12px)' }}>
       <style>{`nav::-webkit-scrollbar{display:none}`}</style>
       <span className="text-k-white font-extrabold text-[13px] tracking-tight py-[14px] mr-4 shrink-0">
         Kajabi Partners
@@ -57,7 +57,7 @@ export default function Nav() {
       {t && (
         <div className="ml-auto pl-5 shrink-0 flex items-center gap-1.5 text-[11px] font-bold text-white/35 whitespace-nowrap">
           Closes in
-          <span className="text-k-amber tabular-nums">
+          <span className="text-[#69FF81] tabular-nums">
             {t.d}d {pad(t.h)}h {pad(t.m)}m {pad(t.s)}s
           </span>
         </div>

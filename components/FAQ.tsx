@@ -136,7 +136,7 @@ export default function FAQ() {
                       className="w-full flex items-start justify-between px-5 py-3.5 text-left gap-4"
                     >
                       <span className="text-[14px] font-semibold text-white leading-snug">{q}</span>
-                      <span className={`text-[18px] font-bold shrink-0 mt-0.5 transition-transform text-[#D6A151] ${isOpen ? 'rotate-45' : ''}`}>+</span>
+                      <span className={`text-[18px] font-bold shrink-0 mt-0.5 transition-transform text-[#69FF81] ${isOpen ? 'rotate-45' : ''}`}>+</span>
                     </button>
                     {isOpen && (
                       <div className="px-5 pb-4 text-[13.5px] text-white/65 leading-relaxed border-t border-white/[0.06] pt-3">

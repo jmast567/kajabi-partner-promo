@@ -25,10 +25,11 @@ const config: Config = {
           blue:   '#3A6278',
           forest: '#405B50',
           purple: '#52405B',
+          green:  '#69FF81',
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'system-ui', 'sans-serif'],
       },
       animation: {
         'pulse-dot': 'pulse-dot 1.8s ease-in-out infinite',

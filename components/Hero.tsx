@@ -32,7 +32,7 @@ function StatusPill() {
 
 export default function Hero() {
   return (
-    <div id="overview" className="border border-white/[0.08] rounded-[8px] p-10 mb-8 text-white" style={{ background: 'linear-gradient(135deg, #1e1810 0%, #161410 30%, #111111 65%, #0f0f0f 100%)', boxShadow: '0 2px 32px rgba(0,0,0,0.6), inset 0 1px 0 rgba(214,161,81,0.08)' }}>
+    <div id="overview" className="border border-white/[0.08] rounded-[8px] p-10 mb-8 text-white" style={{ background: '#111111', boxShadow: '0 1px 24px rgba(0,0,0,0.6)' }}>
       <StatusPill />
 
       <h1 className="text-[30px] font-black tracking-tight leading-tight mt-5 mb-5">
@@ -49,8 +49,8 @@ export default function Hero() {
       {/* Offer card */}
       <div className="rounded-[8px] overflow-hidden mb-4 border border-white/[0.10]">
         <div className="flex items-start gap-4 p-5" style={{ background: 'linear-gradient(135deg, rgba(214,161,81,0.07) 0%, rgba(255,255,255,0.03) 100%)' }}>
-          <div className="bg-[#D6A151] rounded-[6px] px-3.5 py-2.5 text-center shrink-0 min-w-[74px]">
-            <span className="block text-[28px] font-black leading-none tracking-tight text-[#070707]">50%</span>
+          <div className="bg-[#69FF81] rounded-[4px] px-3.5 py-2.5 text-center shrink-0 min-w-[74px]">
+            <span className="block text-[28px] font-black leading-none tracking-tight text-[#0A0A0A]">50%</span>
             <span className="block text-[10px] font-extrabold tracking-widest uppercase text-black/50 mt-0.5">Off</span>
           </div>
           <div className="flex-1">
@@ -71,9 +71,9 @@ export default function Hero() {
       </div>
 
       {/* 12-month advantage banner */}
-      <div className="bg-white/[0.05] border border-white/[0.15] border-l-[3px] border-l-[#D6A151] rounded-r-[8px] px-4 py-3 mb-4 text-[13px] text-white/80 leading-relaxed">
+      <div className="bg-white/[0.04] border border-white/[0.10] border-l-[3px] border-l-[#69FF81] rounded-r-[8px] px-4 py-3 mb-4 text-[13px] text-white/80 leading-relaxed">
         <strong className="text-white">Affiliate advantage:</strong> Customers who sign up through your link get 50% off for{' '}
-        <strong className="text-[#D6A151]">12 months</strong>. All other Kajabi channels only offer 6 months — your link is the best deal available.
+        <strong className="text-[#69FF81]">12 months</strong>. All other Kajabi channels only offer 6 months — your link is the best deal available.
       </div>
 
       <div className="bg-white/[0.04] border border-white/[0.08] rounded-[8px] px-4 py-3.5 text-[13px] text-white/65 leading-relaxed">

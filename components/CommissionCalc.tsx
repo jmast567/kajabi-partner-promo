@@ -74,7 +74,7 @@ export default function CommissionCalc() {
                 onClick={() => setRateIdx(i)}
                 className={`py-2.5 rounded-[8px] text-[13px] font-bold border transition-colors ${
                   rateIdx === i
-                    ? 'bg-[rgba(214,161,81,0.10)] border-[#D6A151]/60 text-[#D6A151]'
+                    ? 'bg-[rgba(105,255,129,0.08)] border-[#69FF81]/50 text-[#69FF81]'
                     : 'bg-white/[0.04] border-white/[0.08] text-white/45 hover:text-white/75'
                 }`}
               >

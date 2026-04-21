@@ -104,7 +104,7 @@ export default function PartnerChat() {
       {/* Floating toggle */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-[#D6A151] hover:bg-[#c49040] shadow-2xl flex items-center justify-center transition-colors"
+        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-[#69FF81] hover:bg-[#50e86a] shadow-2xl flex items-center justify-center transition-colors"
         aria-label="Partner chat"
       >
         {open ? (
@@ -133,8 +133,8 @@ export default function PartnerChat() {
               <p className="text-[13px] font-bold text-white">Partner Chat</p>
               <p className="text-[11px] text-white/40">Connect with other partners in real time</p>
             </div>
-            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />Live
+            <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-[#69FF81]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#69FF81] animate-pulse" />Live
             </span>
           </div>
 
@@ -173,14 +173,14 @@ export default function PartnerChat() {
                   value={handle}
                   onChange={e => setHandle(e.target.value.slice(0, 40))}
                   placeholder="Set a display name to join…"
-                  className="flex-1 bg-white/[0.06] border border-white/[0.10] rounded-[6px] px-3 py-2 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#D6A151]/50"
+                  className="flex-1 bg-white/[0.06] border border-white/[0.10] rounded-[6px] px-3 py-2 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#69FF81]/50"
                   maxLength={40}
                   autoFocus
                 />
                 <button
                   type="submit"
                   disabled={handle.trim().length < 2}
-                  className="px-3 py-2 bg-[#D6A151] hover:bg-[#c49040] disabled:opacity-40 text-black font-bold text-[12px] rounded-[6px] transition-colors"
+                  className="px-3 py-2 bg-[#69FF81] hover:bg-[#50e86a] disabled:opacity-40 text-black font-bold text-[12px] rounded-[6px] transition-colors"
                 >
                   Join
                 </button>
@@ -194,13 +194,13 @@ export default function PartnerChat() {
                     onChange={e => setDraft(e.target.value.slice(0, 500))}
                     onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() }}}
                     placeholder="Message…"
-                    className="flex-1 bg-white/[0.06] border border-white/[0.10] rounded-[6px] px-3 py-2 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#D6A151]/50"
+                    className="flex-1 bg-white/[0.06] border border-white/[0.10] rounded-[6px] px-3 py-2 text-[13px] text-white placeholder:text-white/30 outline-none focus:border-[#69FF81]/50"
                     disabled={sending}
                   />
                   <button
                     onClick={send}
                     disabled={!draft.trim() || sending}
-                    className="px-3 py-2 bg-[#D6A151] hover:bg-[#c49040] disabled:opacity-40 text-black font-bold text-[12px] rounded-[6px] transition-colors"
+                    className="px-3 py-2 bg-[#69FF81] hover:bg-[#50e86a] disabled:opacity-40 text-black font-bold text-[12px] rounded-[6px] transition-colors"
                   >
                     ↑
                   </button>

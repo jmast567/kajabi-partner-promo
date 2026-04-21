@@ -28,16 +28,16 @@ const FAQS = [
         a: 'You earn recurring commission on what the customer actually pays — on the promo price, for 12 months. Commission rate varies by partner tier. At the 30% rate: Basic plan $26.85/mo per sign-up ($322/yr) · Growth plan $37.85/mo ($454/yr) · Pro plan $74.85/mo ($898/yr). Check your partner dashboard for your specific rate. Commissions continue as long as referred customers remain active on Kajabi.',
       },
       {
-        q: 'What counts as a sign-up (GSA)?',
-        a: 'A GSA (Gross Subscriber Acquisition) is an active, paying subscriber — a customer who activates a paid Kajabi plan through your referral link. Sign-ups only count if they convert to a paid plan within the contest window.',
+        q: 'What counts as a sign-up?',
+        a: 'A sign-up is an active, paying subscriber — a customer who activates a paid Kajabi plan through your referral link. Sign-ups only count if they convert to a paid plan within the contest window.',
       },
       {
         q: 'When are leaderboard standings updated?',
         a: 'Leaderboard standings are posted every Friday on this partner landing page. The live leaderboard also updates in real time as data comes in from Kajabi\'s referral attribution system.',
       },
       {
-        q: 'How are final GSA counts verified?',
-        a: "Final GSA counts are verified against Kajabi's referral attribution data. Leaderboard winners are notified within 10 business days of the June 2 close. Milestone winners are notified on a rolling basis as thresholds are hit.",
+        q: 'How are final sign-up counts verified?',
+        a: "Final sign-up counts are verified against Kajabi's referral attribution data. Leaderboard winners are notified within 10 business days of the June 2 close. Milestone winners are notified on a rolling basis as thresholds are hit.",
       },
     ],
   },
@@ -46,15 +46,15 @@ const FAQS = [
     items: [
       {
         q: 'What is the minimum to appear on the public leaderboard?',
-        a: 'Partners need a minimum of 25 GSAs to appear on the public leaderboard. This matches the Tier 1 #5 floor (The Cold Plunge). If you rank in the top 20 but haven\'t hit your prize tier\'s minimum, the prize rolls to the next qualifier.',
+        a: 'Partners need a minimum of 25 sign-ups to appear on the public leaderboard. This matches the Tier 1 #5 floor (The Cold Plunge). If you rank in the top 20 but haven\'t hit your prize tier\'s minimum, the prize rolls to the next qualifier.',
       },
       {
         q: 'Can I win both a leaderboard prize and a milestone prize?',
         a: 'Yes. Leaderboard prizes (Tier 1 and Tier 2) and milestone prizes (Tier 3) are not mutually exclusive. You can qualify for both simultaneously. Bonus & Wildcard Awards stack on top of everything — a partner can win a Tier 1 prize AND a Bonus Award at the same time.',
       },
       {
-        q: 'What are the GSA minimums for each leaderboard prize?',
-        a: '#1 Tesla Model Y: 150 GSAs · #2 Dream Trip for 2: 100 GSAs · #3 Sanctuary Sauna: 75 GSAs · #4 Café Setup: 50 GSAs · #5 Cold Plunge: 25 GSAs · #6–10 MacBook Pro: 10 GSAs · #11–15 MacBook Air: 8 GSAs · #16–20 iPad Pro: 5 GSAs. If a partner holds rank but hasn\'t hit the floor, the prize rolls to the next qualifier.',
+        q: 'What are the sign-up minimums for each leaderboard prize?',
+        a: '#1 Tesla Model Y: 150 sign-ups · #2 Dream Trip for 2: 100 sign-ups · #3 Sanctuary Sauna: 75 sign-ups · #4 Café Setup: 50 sign-ups · #5 Cold Plunge: 25 sign-ups · #6–10 MacBook Pro: 10 sign-ups · #11–15 MacBook Air: 8 sign-ups · #16–20 iPad Pro: 5 sign-ups. If a partner holds rank but hasn\'t hit the floor, the prize rolls to the next qualifier.',
       },
       {
         q: 'When does the leaderboard lock?',
@@ -62,7 +62,7 @@ const FAQS = [
       },
       {
         q: 'How do Tier 3 milestone prizes work?',
-        a: 'Tier 3 prizes are first-come, first-served. The first partner to hit each GSA threshold claims a prize — once the winner cap is reached, that tier closes. Thresholds: 5 GSAs (Apple Store Gift Card, up to 40 winners) · 10 GSAs (AirPods Pro, up to 20 winners) · 15 GSAs (Apple Watch Series 10, up to 25 winners) · 25 GSAs (AirPods Max, up to 30 winners).',
+        a: 'Tier 3 prizes are first-come, first-served. The first partner to hit each sign-up threshold claims a prize — once the winner cap is reached, that tier closes. Thresholds: 5 sign-ups (Apple Store Gift Card, up to 40 winners) · 10 sign-ups (AirPods Pro, up to 20 winners) · 15 sign-ups (Apple Watch Series 10, up to 25 winners) · 25 sign-ups (AirPods Max, up to 30 winners).',
       },
       {
         q: 'Do Hero and non-Hero partners compete on the same leaderboard?',
@@ -75,11 +75,11 @@ const FAQS = [
     items: [
       {
         q: 'What is the Cart Open Bonus?',
-        a: 'The Cart Open Bonus rewards the top 3 partners by GSA count during the May 18 exclusive 24-hour affiliate window. 1st: $3,000 cash · 2nd: $2,000 cash · 3rd: $1,000 cash. This is separate from the leaderboard and stacks on top of any Tier 1–3 prize.',
+        a: 'The Cart Open Bonus rewards the top 3 partners by sign-up count during the May 18 exclusive 24-hour affiliate window. 1st: $3,000 cash · 2nd: $2,000 cash · 3rd: $1,000 cash. This is separate from the leaderboard and stacks on top of any Tier 1–3 prize.',
       },
       {
         q: 'What is the Most Improved Award?',
-        a: 'Biggest percentage GSA lift versus your own prior 3-week baseline. Tiered — rewards growth at any volume level, not just top performers. 3 winners: 1st $3,000 · 2nd $2,000 · 3rd $1,000. Evaluated at June 2 close.',
+        a: 'Biggest percentage sign-up lift versus your own prior 3-week baseline. Tiered — rewards growth at any volume level, not just top performers. 3 winners: 1st $3,000 · 2nd $2,000 · 3rd $1,000. Evaluated at June 2 close.',
       },
       {
         q: 'How do I enter the Most Creative Promo award?',

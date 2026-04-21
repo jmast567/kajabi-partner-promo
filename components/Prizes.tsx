@@ -16,7 +16,7 @@ const BONUS = [
   {
     name: 'Cart Open Bonus',
     prize: '$3K / $2K / $1K cash or equivalent',
-    desc: 'Top 3 partners by GSAs in the exclusive 24-hour affiliate window on May 18.',
+    desc: 'Top 3 partners by sign-ups in the exclusive 24-hour affiliate window on May 18.',
     when: 'May 18 · Top 3 in first 24 hrs',
   },
   {
@@ -28,7 +28,7 @@ const BONUS = [
   {
     name: 'Most Improved Award',
     prize: '$3K / $2K / $1K cash or equivalent',
-    desc: 'Biggest percentage GSA lift versus your own 3-week baseline. Rewards growth at any volume level.',
+    desc: 'Biggest percentage sign-up lift versus your own 3-week baseline. Rewards growth at any volume level.',
     when: 'June 2 · 3 winners',
   },
   {
